@@ -1,4 +1,4 @@
 package org.posapp.model;
 
-public class model1 {
+public class NormalMember {
 }

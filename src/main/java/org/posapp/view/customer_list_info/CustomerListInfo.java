@@ -2,6 +2,7 @@ package org.posapp.view.customer_list_info;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -18,14 +19,14 @@ public class CustomerListInfo extends Application {
     public void start(Stage stage) {
 
         root = new GridPane();
+        root.setPadding(new Insets(30));
+        root.setBackground(new Background(new BackgroundFill(
+                Color.WHITE, null, null
+        )));
+
         makeLeftSection();
         makeRightSection();
 
-        root.getColumnConstraints().addAll(
-                new ColumnConstraints(540),
-                new ColumnConstraints(540)
-        );
-        root.getRowConstraints().add(new RowConstraints(720));
 
         Scene scene = new Scene(root, 1080, 720);
         stage.setScene(scene);
@@ -38,41 +39,8 @@ public class CustomerListInfo extends Application {
                 new Person("Alice", 25),
                 new Person("Bob", 30),
                 new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35)
         };
-        FixedSizeTable CustomerList = new FixedSizeTable<Person>(600, 480, headers, data, this::onRowSelect);
+        FixedSizeTable<Person> CustomerList = new FixedSizeTable<Person>(600, 480, headers, data, this::onRowSelect);
         Label titleLabel = new Label("Customer List and Info");
         titleLabel.setStyle("-fx-font-size: 35px; -fx-font-weight: bold;");
 
@@ -93,11 +61,18 @@ public class CustomerListInfo extends Application {
     }
 
     private void makeRightSection() {
-        StackPane rightBox = new StackPane();
-        rightBox.setBackground(new Background(new BackgroundFill(
-                Color.GREEN, null, null
+        CustomerInfoDetail detail = new CustomerInfoDetail();
+
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(10));
+        gridPane.add(detail, 0, 0);
+        gridPane.setBackground(new Background(new BackgroundFill(
+                Color.WHITE, null, null
         )));
-        root.add(rightBox, 1, 0);
+        gridPane.setMargin(detail, new Insets(60, 0, 0,0));
+
+        root.add(gridPane, 1, 0);
+
     }
 
     private void onRowSelect(Person selectedItem) {
