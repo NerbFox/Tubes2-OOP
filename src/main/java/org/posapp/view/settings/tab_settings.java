@@ -30,7 +30,6 @@ public class tab_settings extends BorderPane {
     private int heightBox = 580;
 //    public class TabSettings extends BorderPane {
 
-    private Button pluginButton, themeButton, advancedButton;
     private VBox leftBox;
 
         public tab_settings(String nama) {
@@ -43,117 +42,76 @@ public class tab_settings extends BorderPane {
 
     private void createHeaders() {
         Rectangle rectTitle = new Rectangle();
-        rectTitle.setStyle("-fx-fill: #767676;");
+        rectTitle.setStyle("-fx-fill: #000000;");
         rectTitle.setWidth(300);
         rectTitle.setHeight(45);
-        rectTitle.setY(5);
-        setLeft(rectTitle);
+//        rectTitle.setY(0);
+        setTop(rectTitle);
 
         titleLabel = new Label("Settings");
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: white;");
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #524f4f;");
         titleLabel.setLayoutX(320);
         titleLabel.setLayoutY(0);
-        setLeft(titleLabel);
+        titleLabel.setAlignment(Pos.CENTER);
+        setTop(titleLabel);
+
     }
 
     private void createLeftBox() {
         leftBox = new VBox();
-        leftBox.setPrefWidth(200);
+        leftBox.setPrefWidth(70);
+//        leftBox.setPrefHeight(580);
         leftBox.setStyle("-fx-background-color: #D9D9D9;");
+        // set stroke
+        leftBox.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 4px;");
 
-        pluginButton = createButton("Plugin");
-        themeButton = createButton("Theme");
-        advancedButton = createButton("Advanced");
 
-        leftBox.getChildren().addAll(pluginButton, themeButton, advancedButton);
+
+        plugin = createButton("Plugin");
+        format_file = createButton("Format File");
+        storage_dir = createButton("Storage Directory");
+
+        leftBox.getChildren().addAll(plugin, format_file, storage_dir);
         setCenter(leftBox);
     }
 
     private void createRightBox() {
         TabPane innerTabPane = new TabPane();
-        innerTabPane.setPrefSize(500, 700);
+        innerTabPane.setPrefSize(800, 700);
         innerTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         innerTabPane.setSide(Side.LEFT);
 
         Tab pluginTab = new Tab("Plugin");
-        pluginTab.setContent(new Label("Plugin Tab Content"));
+        pluginTab.setContent(new plugin_settings());
 
-        Tab themeTab = new Tab("Theme");
-        themeTab.setContent(new Label("Theme Tab Content"));
+        Tab formatFileTab = new Tab("Format File");
+        formatFileTab.setContent(new Label("Format File Tab Content"));
 
-        Tab advancedTab = new Tab("Advanced");
-        advancedTab.setContent(new Label("Advanced Tab Content"));
+        Tab storageTab = new Tab("Storage Directory");
+        storageTab.setContent(new Label("Storage Directory Tab Content"));
 
-        innerTabPane.getTabs().addAll(pluginTab, themeTab, advancedTab);
+        innerTabPane.getTabs().addAll(pluginTab, formatFileTab, storageTab);
         setRight(innerTabPane);
 
-        pluginButton.setOnAction(e -> innerTabPane.getSelectionModel().select(pluginTab));
-        themeButton.setOnAction(e -> innerTabPane.getSelectionModel().select(themeTab));
-        advancedButton.setOnAction(e -> innerTabPane.getSelectionModel().select(advancedTab));
+        // if button clicked, change the color of button to darker and select the tab
+        plugin.setOnAction(e -> innerTabPane.getSelectionModel().select(pluginTab));
+//        plugin.setOnAction(e -> plugin.setStyle("-fx-background-color: #BDBDBD; -fx-font-size: 16px; -fx-text-fill: black;"));
+        format_file.setOnAction(e -> innerTabPane.getSelectionModel().select(formatFileTab));
+        storage_dir.setOnAction(e -> innerTabPane.getSelectionModel().select(storageTab));
     }
 
     private Button createButton(String text) {
         Button button = new Button(text);
-        button.setPrefWidth(200);
+        button.setPrefWidth(300);
         button.setPrefHeight(50);
         button.setStyle("-fx-background-color: #E0E0E0; -fx-font-size: 16px; -fx-text-fill: black;");
+        // set to left alignment
+        button.setAlignment(Pos.CENTER_LEFT);
+        // set stroke
+        button.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 4px;");
 //        button.setCursor(Cursor.HAND);
         return button;
     }
-//            setPrefSize(700, 580);
-//            createHeaders();
-//            createLeftBox();
-//            createRightBox();
-//        }
-//
-//        private void createHeaders() {
-//            // Create the title label
-//            Label titleLabel = new Label("Settings");
-//            titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 36px;");
-//            titleLabel.setAlignment(Pos.CENTER);
-//            titleLabel.setPrefWidth(300);
-//            titleLabel.setPrefHeight(45);
-//            setTop(titleLabel);
-//        }
-//
-//        private void createLeftBox() {
-//            VBox leftBox = new VBox();
-//            leftBox.setPrefSize(260, 535);
-//            leftBox.setStyle("-fx-background-color: #D9D9D9;");
-//
-//            // Create tabs for the left box
-//            TabPane tabPane = new TabPane();
-//            tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-//            tabPane.setPrefSize(260, 490);
-//
-//            Tab tab1 = new Tab("Tab 1", new Label("Content of tab 1"));
-//            Tab tab2 = new Tab("Tab 2", new Label("Content of tab 2"));
-//            Tab tab3 = new Tab("Tab 3", new Label("Content of tab 3"));
-//            tabPane.getTabs().addAll(tab1, tab2, tab3);
-//
-//            // Create a button to switch to the second tab
-//            Button button = new Button("Plugin");
-//            button.setOnAction(e -> {
-//                // Switch to the second tab
-//                tabPane.getSelectionModel().select(1);
-//            });
-//
-//            leftBox.getChildren().addAll(tabPane, button);
-//            setLeft(leftBox);
-//        }
-//
-//        private void createRightBox() {
-//            VBox rightBox = new VBox();
-//            rightBox.setPrefSize(440, 535);
-//            rightBox.setStyle("-fx-background-color: white;");
-//
-//            // Create content for the right box
-//            Label label = new Label("This is the content for the right box");
-//            label.setStyle("-fx-font-size: 24px;");
-//
-//            rightBox.getChildren().add(label);
-//            setCenter(rightBox);
-//        }
 
 
 //    public tab_settings(String nama) {
