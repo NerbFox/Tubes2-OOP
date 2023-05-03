@@ -85,10 +85,10 @@ public class tab_settings extends BorderPane {
         pluginTab.setContent(new plugin_settings());
 
         Tab formatFileTab = new Tab("Format File");
-        formatFileTab.setContent(new Label("Format File Tab Content"));
+        formatFileTab.setContent(new format_file());
 
         Tab storageTab = new Tab("Storage Directory");
-        storageTab.setContent(new Label("Storage Directory Tab Content"));
+        storageTab.setContent(new storage_dir());
 
         innerTabPane.getTabs().addAll(pluginTab, formatFileTab, storageTab);
         setRight(innerTabPane);
