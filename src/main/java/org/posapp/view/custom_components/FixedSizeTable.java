@@ -10,11 +10,11 @@ import java.util.function.Consumer;
 
 public class FixedSizeTable<T> extends TableView<T> {
 
-    public FixedSizeTable(int height, int width, String[] headers, T[] data, Consumer<T> onRowSelect) {
+    public FixedSizeTable(int height, int width, String[] headersName, String[] attributeName, T[] data, Consumer<T> onRowSelect) {
         // Create the columns dynamically based on the headers array
-        for (String header : headers) {
-            TableColumn column = new TableColumn<T, Object>(header);
-            column.setCellValueFactory(new PropertyValueFactory<>(header.toLowerCase()));
+        for (int i = 0; i < headersName.length; i++) {
+            TableColumn column = new TableColumn<T, Object>(headersName[i]);
+            column.setCellValueFactory(new PropertyValueFactory<>(attributeName[i]));
             getColumns().add(column);
         }
         setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

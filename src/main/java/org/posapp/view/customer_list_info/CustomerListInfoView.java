@@ -2,18 +2,24 @@ package org.posapp.view.customer_list_info;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.posapp.model.Customer;
+import org.posapp.model.Member;
+import org.posapp.model.NonMember;
 import org.posapp.view.custom_components.FixedSizeTable;
-import org.posapp.view.custom_components.Person;
 
-public class CustomerListInfo extends Application {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+
+public class CustomerListInfoView extends Application {
     private Scene scene;
     private GridPane root;
+    private CustomerInfoDetail detail;
 
     @Override
     public void start(Stage stage) {
@@ -34,13 +40,15 @@ public class CustomerListInfo extends Application {
     }
 
     private void makeLeftSection() {
-        String[] headers = new String[] {"Name", "Age"};
-        Person[] data = new Person[] {
-                new Person("Alice", 25),
-                new Person("Bob", 30),
-                new Person("Charlie", 35),
+        String[] headers = new String[] {"Customer ID", "Membership Status"};
+        String[] attributes = new String[] {"idCust", "memberStatus"};
+        Customer[] data = new Customer[]{
+                new NonMember(1, 1),
+                new Member(2, "Bob", "0812241231", new ArrayList<Integer>(Arrays.asList(1,2,3)), 2000, false, false),
+                new Member(3, "Charlie", "089623734", new ArrayList<Integer>(Arrays.asList(4,5,6)), 3000, false, true),
+                new Member(4, "Dodo", "082136237", new ArrayList<Integer>(Arrays.asList(7,8,9)), 4000, true, true)
         };
-        FixedSizeTable<Person> CustomerList = new FixedSizeTable<Person>(600, 480, headers, data, this::onRowSelect);
+        FixedSizeTable<Customer> CustomerList = new FixedSizeTable<Customer>(600, 480, headers, attributes, data, this::onRowSelect);
         Label titleLabel = new Label("Customer List and Info");
         titleLabel.setStyle("-fx-font-size: 35px; -fx-font-weight: bold;");
 
@@ -61,7 +69,7 @@ public class CustomerListInfo extends Application {
     }
 
     private void makeRightSection() {
-        CustomerInfoDetail detail = new CustomerInfoDetail();
+        detail = new CustomerInfoDetail(this::onSaveHandler);
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10));
@@ -72,12 +80,24 @@ public class CustomerListInfo extends Application {
         gridPane.setMargin(detail, new Insets(60, 0, 0,0));
 
         root.add(gridPane, 1, 0);
-
     }
 
-    private void onRowSelect(Person selectedItem) {
-        System.out.println("Selected row: " + selectedItem.getName() + ", " + selectedItem.getAge());
-        // Do something with the selected data here
+    private void onRowSelect(Customer selectedItem) {
+        detail.setTextTitleID(selectedItem.getIdCust().toString());
+        detail.setTextMembershipStatus(selectedItem.getMemberStatus());
+
+        if (selectedItem instanceof Member) {
+            detail.setTextName(((Member) selectedItem).getName());
+            detail.setTextPhone(((Member) selectedItem).getPhone());
+            detail.setTextPoints(((Member) selectedItem).getPoin().toString());
+        } else {
+            detail.clear();
+        }
+        detail.setComboBox(selectedItem);
+    }
+
+    private void onSaveHandler(Map<String, String> savedValue) {
+        System.out.println(savedValue.toString());
     }
 
     public static void main(String[] args) {

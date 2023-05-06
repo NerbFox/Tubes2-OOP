@@ -1,6 +1,8 @@
 package org.posapp.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 
@@ -11,4 +13,30 @@ public class Member extends Customer {
     ArrayList<Integer> arrFixedBillId;
     Integer poin;
     Boolean frozen;
+    Boolean vipStatus;
+    public Member(Integer idCust, String name, String phone, ArrayList<Integer> arrFixedBillId, Integer poin, Boolean frozen, Boolean vipStatus) {
+        super(idCust);
+        this.name = name;
+        this.phone = phone;
+        this.arrFixedBillId = arrFixedBillId;
+        this.poin = poin;
+        this.frozen = frozen;
+        this.vipStatus = vipStatus;
+    }
+    public  String getMemberStatus() {
+        if (this.frozen) return "Deactivated";
+        return vipStatus ? "VIP Member" : "Normal Member";
+    }
+
+    public ArrayList<FixedBill> arrFixedBill() {
+        ArrayList<FixedBill> allFixedBill = Datastore.getInstance().getArrFixedBill();
+        ArrayList<FixedBill> userFixedBill = new ArrayList<>();
+
+        for (FixedBill fixedBill : allFixedBill) {
+            if (arrFixedBillId.contains(fixedBill.getIdFixedBill())) {
+                userFixedBill.add(fixedBill);
+            }
+        }
+        return userFixedBill;
+    }
 }
