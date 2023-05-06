@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.posapp.view.manajemen_barang.ManajemenBarangView;
+import org.posapp.view.ManajemenBarang.ManajemenBarangView;
 import org.posapp.view.settings.tab_settings;
 
 import java.util.Arrays;

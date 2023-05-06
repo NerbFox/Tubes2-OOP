@@ -1,4 +1,4 @@
-package org.posapp.view.manajemen_barang;
+package org.posapp.view.ManajemenBarang;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -52,7 +52,7 @@ public class ManajemenBarangView extends Pane {
         leftSideLayout.getChildren().addAll(searchPane, table, btnPane);
         leftSideLayout.setPadding(new Insets(20, 20, 20, 20));
 
-        VBox test = detailBarang(new Barang(4, "tempe", "makanan", 0, 1,3, "url"));
+        VBox test = new DetailBarangView (new Barang(4, "tempe", "makanan", 0, 1,3, "url"), this);
         layout.getChildren().addAll(leftSideLayout, test);
         this.getChildren().add(layout);
     }
