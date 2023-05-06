@@ -39,7 +39,7 @@ public class ManajemenBarangView extends Pane {
         searchPane.setPadding(new Insets(0, 0, 20, 0));
 
         String[] headers = new String[] {"Nama", "Kategori", "Stok", "HargaJual", "HargaBeli"};
-        table = new FixedSizeTable<Barang>(520, 540, headers, items.toArray(new Barang[0]), this::onRowSelect);
+        table = new FixedSizeTable<Barang>(520, 540, headers, headers, items.toArray(new Barang[0]), this::onRowSelect);
 
         Pane btnPane = new Pane();
         Button addBarangButton = new Button("+");
