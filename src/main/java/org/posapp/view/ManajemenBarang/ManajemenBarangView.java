@@ -18,6 +18,8 @@ import java.util.List;
 
 public class ManajemenBarangView extends Pane {
     private TextField searchField;
+    VBox leftSideLayout;
+    Pane rightSideLayout;
     private FixedSizeTable<Barang>  table;
     HBox layout;
     List<Barang> items = new ArrayList<Barang>(Arrays.asList(
@@ -29,9 +31,9 @@ public class ManajemenBarangView extends Pane {
 
     public ManajemenBarangView(String nama) {
         layout = new HBox();
-        this.setStyle("-fx-background-color: #0000FF;");
+        this.setStyle("-fx-background-color: #ffffff;");
 
-        VBox leftSideLayout = new VBox();
+        leftSideLayout = new VBox();
 
         Pane searchPane = new Pane();
         searchField = new FixedSizeSearchBar(540, 20, "Cari Barang ... ", ((oldValue, newValue) -> searchHandler(newValue)));
@@ -58,7 +60,7 @@ public class ManajemenBarangView extends Pane {
     }
 
     private void onRowSelect(Barang selectedItem){
-        layout.getChildren().set(1, detailBarang(selectedItem));
+        layout.getChildren().set(1, new DetailBarangView(selectedItem, this));
     }
     private void searchHandler(String input) {
         if (input.isEmpty()){
@@ -80,7 +82,7 @@ public class ManajemenBarangView extends Pane {
         table.setItems(FXCollections.observableArrayList(items));
     }
 
-    private void edit(Barang item, String nama, String kat, Integer qty) {
+    public void edit(Barang item, String nama, String kat, Integer qty) {
         items.remove(item);
         item.setNama(nama);
         item.setKategori(kat);
