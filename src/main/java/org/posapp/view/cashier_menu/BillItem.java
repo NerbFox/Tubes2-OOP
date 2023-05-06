@@ -12,9 +12,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import org.posapp.model.Barang;
 import javafx.stage.Stage;
 
 public class BillItem extends HBox {
+    Barang barang;
+
     public BillItem() {
         super();
         double height = 29;

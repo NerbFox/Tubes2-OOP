@@ -8,6 +8,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class BillItems extends Group {
+
+
     public BillItems() {
         super();
         VBox mainContent = new VBox();

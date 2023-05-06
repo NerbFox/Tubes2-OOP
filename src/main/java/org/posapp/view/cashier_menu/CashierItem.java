@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class CashierItem extends HBox {
+
     CashierItem() {
         super(10);
         Label itemLabel = new Label("Barang 1");
