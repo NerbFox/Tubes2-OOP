@@ -12,6 +12,7 @@ import java.io.File;
 import javafx.stage.Stage;
 
 public class storage_dir extends Pane {
+    private String path;
     public storage_dir() {
         int width = 450;
         int height = 50;
@@ -58,14 +59,17 @@ public class storage_dir extends Pane {
 
             if(selectedDirectory != null) {
                 // do something with the selected directory
-                labelFormat.setText(selectedDirectory.getAbsolutePath());
+                path = selectedDirectory.getAbsolutePath();
+                // get base name of directory
+                labelFormat.setText(selectedDirectory.getName());
+                System.out.println(path);
             }
 
         });
         getChildren().add(ChooseDir);
-
-
-
     }
 
+    void openFileExplorer() {
+        // open file explorer
+    }
 }
