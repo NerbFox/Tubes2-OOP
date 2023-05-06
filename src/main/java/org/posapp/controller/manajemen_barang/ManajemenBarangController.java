@@ -7,6 +7,8 @@ public class ManajemenBarangController {
     ManajemenBarangView view;
     Barang model;
 
-//    ManajemenBarangController()
+    public ManajemenBarangController(ManajemenBarangView _view){
+        view = _view;
+    }
 
 }

@@ -48,8 +48,6 @@ public class DetailBarangView extends VBox{
 
         Button btnSave = new Button("Save");
         btnSave.setStyle("-fx-font-size: 20px; -fx-font-weight: normal;");
-//        btnSave.setOnAction((event) -> view.edit());
-
         Button btnDelete = new Button("Delete");
         btnDelete.setStyle("-fx-font-size: 20px; -fx-font-weight: normal;");
 
