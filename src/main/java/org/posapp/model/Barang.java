@@ -10,8 +10,8 @@ import lombok.ToString;
 public class Barang {
     private Integer idBarang;
     private String nama;
-    private int stok;
     private String kategori;
+    private int stok;
     private int hargaJual;
     private int hargaBeli;
     private String pathGambar;

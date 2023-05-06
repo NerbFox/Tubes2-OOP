@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.posapp.model.Barang;
 import org.posapp.view.custom_components.FixedSizeSearchBar;
 import org.posapp.view.custom_components.FixedSizeTable;
 
@@ -17,13 +18,13 @@ import java.util.List;
 
 public class ManajemenBarangView extends Pane {
     private TextField searchField;
-    private FixedSizeTable<ItemBarang>  table;
+    private FixedSizeTable<Barang>  table;
     HBox layout;
-    List<ItemBarang> items = new ArrayList<ItemBarang>(Arrays.asList(
-            new ItemBarang("rokok", "obat", 10, 1.3,3.3),
-            new ItemBarang("teh", "minuman", 11, 1.3,3.3),
-            new ItemBarang("kopi", "minuman", 16, 1.3,3.3),
-            new ItemBarang("tempe", "makanan", 0, 1.3,3.3)
+    List<Barang> items = new ArrayList<Barang>(Arrays.asList(
+            new Barang(1, "rokok", "obat", 10, 1,3, "url"),
+            new Barang(2, "teh", "minuman", 11, 1,3, "url"),
+            new Barang(3, "kopi", "minuman", 16, 1,3, "url"),
+            new Barang(4, "tempe", "makanan", 0, 1,3, "url")
     ));
 
     public ManajemenBarangView(String nama) {
@@ -38,7 +39,7 @@ public class ManajemenBarangView extends Pane {
         searchPane.setPadding(new Insets(0, 0, 20, 0));
 
         String[] headers = new String[] {"Nama", "Kategori", "Stok", "HargaJual", "HargaBeli"};
-        table = new FixedSizeTable<ItemBarang>(520, 540, headers, items.toArray(new ItemBarang[0]), this::onRowSelect);
+        table = new FixedSizeTable<Barang>(520, 540, headers, items.toArray(new Barang[0]), this::onRowSelect);
 
         Pane btnPane = new Pane();
         Button addBarangButton = new Button("+");
@@ -51,43 +52,12 @@ public class ManajemenBarangView extends Pane {
         leftSideLayout.getChildren().addAll(searchPane, table, btnPane);
         leftSideLayout.setPadding(new Insets(20, 20, 20, 20));
 
-        VBox test = detailBarang(new ItemBarang("tempe", "makanan", 0, 1.3,3.3));
+        VBox test = detailBarang(new Barang(4, "tempe", "makanan", 0, 1,3, "url"));
         layout.getChildren().addAll(leftSideLayout, test);
         this.getChildren().add(layout);
     }
 
-//    private TableView<ItemBarang> tableListBarang(){
-//        TableView<ItemBarang> tableView = new TableView<>();
-//
-//        TableColumn<ItemBarang, String> nameCol = new TableColumn<>("Nama");
-//        nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-//
-//        TableColumn<ItemBarang, String> catCol = new TableColumn<>("Kategori");
-//        catCol.setCellValueFactory(cellData -> cellData.getValue().kategoriProperty());
-//
-//        TableColumn<ItemBarang, Integer> qtyCol = new TableColumn<>("Stok");
-//        qtyCol.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
-//
-//        tableView.setItems(items);
-//        tableView.getColumns().addAll(nameCol, catCol, qtyCol);
-//        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-//        tableView.setPrefSize(540, 540);
-//
-//        tableView.setOnMouseClicked(event -> {
-//            if (event.getClickCount() == 2){
-//                ItemBarang selectItem = tableView.getSelectionModel().getSelectedItem();
-//                if (selectItem != null){
-//                    System.out.println("Clicked");
-//                    layout.getChildren().set(1, detailBarang(selectItem));
-//
-//                }
-//            }
-//        });
-//
-//        return tableView;
-//    }
-
-    private void onRowSelect(ItemBarang selectedItem){
+    private void onRowSelect(Barang selectedItem){
         layout.getChildren().set(1, detailBarang(selectedItem));
     }
     private void searchHandler(String input) {
@@ -96,8 +66,8 @@ public class ManajemenBarangView extends Pane {
             return;
         }
 
-        ObservableList<ItemBarang> searchResult = FXCollections.observableArrayList();
-        for (ItemBarang item : items){
+        ObservableList<Barang> searchResult = FXCollections.observableArrayList();
+        for (Barang item : items){
             if (item.getNama().toLowerCase().contains(input.toLowerCase())) {
                 searchResult.add(item);
             }
@@ -106,11 +76,11 @@ public class ManajemenBarangView extends Pane {
     }
 
     private void add(){
-        items.add(new ItemBarang("New Barang", "Kategori", 11, 1.2, 7.8));
+        items.add(new Barang(4, "tempe", "makanan", 0, 1,3, "url"));
         table.setItems(FXCollections.observableArrayList(items));
     }
 
-    private void edit(ItemBarang item, String nama, String kat, Integer qty) {
+    private void edit(Barang item, String nama, String kat, Integer qty) {
         items.remove(item);
         item.setNama(nama);
         item.setKategori(kat);
@@ -118,7 +88,7 @@ public class ManajemenBarangView extends Pane {
         items.add(item);
         table.setItems(FXCollections.observableArrayList(items));
     }
-    private VBox detailBarang(ItemBarang item){
+    private VBox detailBarang(Barang item){
         VBox detailView = new VBox();
 
         Label namaLabel = new Label("Nama");
@@ -131,7 +101,7 @@ public class ManajemenBarangView extends Pane {
 
         Label qtyLabel = new Label("Quantity");
         TextField qtyField = new TextField();
-        qtyField.setText(item.getStok().toString());
+        qtyField.setText(String.valueOf(item.getStok()));
 
         Button btnSave = new Button("Save");
         btnSave.setOnAction((event) -> edit(item, namaField.getText(), katField.getText(), Integer.parseInt(qtyField.getText())));
