@@ -33,6 +33,9 @@ public class DisplayManager extends Application {
         // TabPane
         tabPane = new TabPane();
         root.setCenter(tabPane);
+        Tab tab = new Tab("MBV");
+        tab.setContent(new ManajemenBarangView("MBV"));
+        tabPane.getTabs().add(tab);
 
         Scene scene = new Scene(root, 1080, 720);
         primaryStage.setScene(scene);
