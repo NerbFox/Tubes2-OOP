@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.posapp.view.manajemen_barang.ManajemenBarangView;
 import org.posapp.view.settings.tab_settings;
 
 import java.util.Arrays;
@@ -100,7 +101,7 @@ public class DisplayManager extends Application {
 //                }
                 if (nama.equals("Tab1")) newTab.setContent(new TabContent(nama));
                 else if (nama.equals("Tab2")) newTab.setContent(new tab_settings(nama));
-                else newTab.setContent(new TabContent(nama));
+                else if (nama.equals("Tab3")) newTab.setContent(new ManajemenBarangView(nama));
 
                 tabPane.getTabs().add(newTab);
                 tabPane.getSelectionModel().select(newTab);
