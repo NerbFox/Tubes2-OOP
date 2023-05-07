@@ -20,12 +20,11 @@ import java.util.function.UnaryOperator;
 
 public class HistoryView extends Pane {
     private TextField searchID;
-    private Button btnDate;
+    private Button btnPdf;
     private FixedSizeTable<TranHis> table1;
     VBox leftSideLayout;
     VBox rightSideLayout;
     HBox layout;
-
     List<TranHis> data;
 
     public HistoryView(String nama){
@@ -49,28 +48,39 @@ public class HistoryView extends Pane {
         searchIDPane.getChildren().add(searchID);
         searchIDPane.setPadding(new Insets(0, 0, 20, 10));
 
+        Pane btnPdfPane = new Pane();
+        btnPdf = new Button("Download PDF Transaction History");
+        btnPdf.setMinWidth(340);
+        btnPdf.setMaxHeight(20);
+        btnPdf.setOnAction(event -> toPdf());
+        btnPdfPane.getChildren().add(btnPdf);
+        btnPdfPane.setPadding(new Insets(0, 0, 20, 0));
+
         Label hislab = new Label(("Transaction History"));
         hislab.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 
         String[] headers = new String[] {"BillID", "TotalBill"};
-        table1 = new FixedSizeTable<TranHis>(520, 440, headers, headers, data.toArray(new TranHis[0]), this::onRowSelect);
+        table1 = new FixedSizeTable<TranHis>(470, 440, headers, headers, data.toArray(new TranHis[0]), this::onRowSelect);
 
-        leftSideLayout.getChildren().addAll(searchIDPane, hislab, table1);
+        leftSideLayout.getChildren().addAll(searchIDPane, btnPdfPane, hislab, table1);
         leftSideLayout.setPadding(new Insets(20, 20, 20, 20));
 
-        rightSideLayout = new DetailHistoryView(itemsdefault);
+        rightSideLayout = new DetailHistoryView();
         layout.getChildren().addAll(leftSideLayout, rightSideLayout);
         this.getChildren().add(layout);
     }
 
+    private void toPdf() {
+    }
+
     private void searchHandler(String input) {
         if (input.isEmpty()){
-            table1.setItems(FXCollections.observableArrayList(itemstesttable1));
+            table1.setItems(FXCollections.observableArrayList(data));
             return;
         }
 
         ObservableList<TranHis> searchResult = FXCollections.observableArrayList();
-        for (TranHis item : itemstesttable1){
+        for (TranHis item : data){
             if (item.getID().equals(Integer.parseInt(input))) {
                 searchResult.add(item);
             }

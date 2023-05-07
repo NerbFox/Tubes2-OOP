@@ -45,5 +45,4 @@ public class TranHis {
         membership = cust.getMemberStatus();
         mapBarang = bill.getMapBarang();
     }
-
 }
