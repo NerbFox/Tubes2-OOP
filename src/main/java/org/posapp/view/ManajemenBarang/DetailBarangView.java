@@ -143,8 +143,8 @@ public class DetailBarangView extends VBox{
         HBox buttons = new HBox();
         buttons.getChildren().addAll(btnDelete, btnSave);
         buttons.setAlignment(Pos.CENTER);
-        HBox.setMargin(btnDelete, new Insets(0, 130, 0, 0));
-        HBox.setMargin(btnSave, new Insets(0, 0, 0, 110));
+        HBox.setMargin(btnDelete, new Insets(0, 110, 0, 0));
+        HBox.setMargin(btnSave, new Insets(0, 0, 0, 80));
         setMargin(buttons, new Insets(10, 0, 0, 0));
 
 //        setAlignment(Pos.CENTER);
