@@ -1,5 +1,6 @@
 package org.posapp.view.customer_list_info;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -7,11 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.posapp.model.Customer;
-import org.posapp.model.Member;
-import org.posapp.model.NonMember;
+import org.posapp.controller.command.Command;
+import org.posapp.controller.command.RowSelectCommand;
+import org.posapp.controller.command.SaveCommand;
+import org.posapp.model.*;
 import org.posapp.view.custom_components.FixedSizeTable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class CustomerListInfoView extends Application {
     private Scene scene;
     private GridPane root;
     private CustomerInfoDetail detail;
+    private FixedSizeTable<Customer> CustomerList;
 
     @Override
     public void start(Stage stage) {
@@ -42,13 +44,11 @@ public class CustomerListInfoView extends Application {
     private void makeLeftSection() {
         String[] headers = new String[] {"Customer ID", "Membership Status"};
         String[] attributes = new String[] {"idCust", "memberStatus"};
-        Customer[] data = new Customer[]{
-                new NonMember(1, 1),
-                new Member(2, "Bob", "0812241231", new ArrayList<Integer>(Arrays.asList(1,2,3)), 2000, false, false),
-                new Member(3, "Charlie", "089623734", new ArrayList<Integer>(Arrays.asList(4,5,6)), 3000, false, true),
-                new Member(4, "Dodo", "082136237", new ArrayList<Integer>(Arrays.asList(7,8,9)), 4000, true, true)
-        };
-        FixedSizeTable<Customer> CustomerList = new FixedSizeTable<Customer>(600, 480, headers, attributes, data, this::onRowSelect);
+
+        Customer[] data = new Customer[Datastore.getInstance().getArrCustomer().size()];
+        data = Datastore.getInstance().getArrCustomer().toArray(data);
+
+        CustomerList = new FixedSizeTable<Customer>(600, 480, headers, attributes, data, this::onRowSelect);
         Label titleLabel = new Label("Customer List and Info");
         titleLabel.setStyle("-fx-font-size: 35px; -fx-font-weight: bold;");
 
@@ -83,21 +83,13 @@ public class CustomerListInfoView extends Application {
     }
 
     private void onRowSelect(Customer selectedItem) {
-        detail.setTextTitleID(selectedItem.getIdCust().toString());
-        detail.setTextMembershipStatus(selectedItem.getMemberStatus());
-
-        if (selectedItem instanceof Member) {
-            detail.setTextName(((Member) selectedItem).getName());
-            detail.setTextPhone(((Member) selectedItem).getPhone());
-            detail.setTextPoints(((Member) selectedItem).getPoin().toString());
-        } else {
-            detail.clear();
-        }
-        detail.setComboBox(selectedItem);
+        Command command = new RowSelectCommand(detail, selectedItem);
+        command.execute();
     }
 
     private void onSaveHandler(Map<String, String> savedValue) {
-        System.out.println(savedValue.toString());
+        Command command = new SaveCommand(savedValue, CustomerList);
+        command.execute();
     }
 
     public static void main(String[] args) {
