@@ -26,8 +26,8 @@ public class NonMember extends Customer {
     }
 
     public FixedBill getFixedBill() {
+        Datastore.getInstance().hardCodeBill();
         ArrayList<FixedBill> allFixedBill = Datastore.getInstance().getArrFixedBill();
-        ArrayList<FixedBill> userFixedBill = new ArrayList<>();
 
         for (FixedBill fixedBill : allFixedBill) {
             if (fixedBillID.equals(fixedBill.getIdFixedBill())) {

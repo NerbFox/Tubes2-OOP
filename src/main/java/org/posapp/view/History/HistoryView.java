@@ -50,7 +50,7 @@ public class HistoryView extends Pane {
 
         Pane btnPdfPane = new Pane();
         btnPdf = new Button("Download PDF Transaction History");
-        btnPdf.setMinWidth(340);
+        btnPdf.setMinWidth(440);
         btnPdf.setMaxHeight(20);
         btnPdf.setOnAction(event -> toPdf());
         btnPdfPane.getChildren().add(btnPdf);
@@ -60,7 +60,8 @@ public class HistoryView extends Pane {
         hislab.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 
         String[] headers = new String[] {"BillID", "TotalBill"};
-        table1 = new FixedSizeTable<TranHis>(470, 440, headers, headers, data.toArray(new TranHis[0]), this::onRowSelect);
+        initData();
+        table1 = new FixedSizeTable<TranHis>(470, 440, headers, headers, data.toArray(new TranHis[data.size()]), this::onRowSelect);
 
         leftSideLayout.getChildren().addAll(searchIDPane, btnPdfPane, hislab, table1);
         leftSideLayout.setPadding(new Insets(20, 20, 20, 20));

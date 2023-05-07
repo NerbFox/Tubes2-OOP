@@ -22,8 +22,9 @@ public class DetailHistoryView extends VBox{
         setMargin(labName,new Insets(20,0,0,0));
         setMargin(labNoTel,new Insets(0,0,20,0));
 
-        String[] headers = new String[] {"idBarang", "nama", "hargaJual", "stok", "hargaBeli"};
-        table2 = new FixedSizeTable<TransHisDetail>(488, 570, headers, headers, makeArrTransHisDetail(item.getMapBarang()), this::onRowSelect);
+        String[] headers = new String[] {"Goods Id", "Goods Name", "Price", "Quantity", "Subtotal"};
+        String[] attributes = new String[] {"idBarang", "nama", "harga", "quantity", "subtotal"};
+        table2 = new FixedSizeTable<TransHisDetail>(488, 570, headers, attributes, makeArrTransHisDetail(item.getMapBarang()), this::onRowSelect);
 
         getChildren().addAll(labName,labID, labMembership, labNoTel, table2);
     }
@@ -37,8 +38,9 @@ public class DetailHistoryView extends VBox{
         setMargin(labName,new Insets(20,0,0,0));
         setMargin(labNoTel,new Insets(0,0,20,0));
 
-        String[] headers = new String[] {"idBarang", "nama", "hargaJual", "stok", "hargaBeli"};
-        table2 = new FixedSizeTable<TransHisDetail>(488, 570, headers, headers, new TransHisDetail[0] , this::onRowSelect);
+        String[] headers = new String[] {"Goods Id", "Goods Name", "Price", "Quantity", "Subtotal"};
+        String[] attributes = new String[] {"idBarang", "nama", "harga", "quantity", "subtotal"};
+        table2 = new FixedSizeTable<TransHisDetail>(488, 570, headers, attributes, new TransHisDetail[0] , this::onRowSelect);
 
         getChildren().addAll(labName,labID, labMembership, labNoTel,table2);
     }

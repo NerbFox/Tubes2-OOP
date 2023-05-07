@@ -69,14 +69,13 @@ public class DisplayManager extends Application {
         MenuItem btn4 = new MenuItem("Tab4");
         btn4.setOnAction(new AddTabHandler("Tab4"));
 
-//        MenuItem btn5 = new MenuItem("Tab5");
-//        btn5.setOnAction(new AddTabHandler("Tab5"));
+        MenuItem btn5 = new MenuItem("Tab5");
+        btn5.setOnAction(new AddTabHandler("Tab5"));
 
         MenuItem btn6 = new MenuItem("Tab6");
         btn6.setOnAction(new AddTabHandler("Tab6"));
 
-        dropDownBtn.getItems().addAll(btn3, btn4, btn6);
-//        dropDownBtn.getItems().addAll(btn3, btn4, btn5, btn6);
+        dropDownBtn.getItems().addAll(btn3, btn4, btn5, btn6);
 
         toolbar.getItems().addAll(btn1, btn2, dropDownBtn);
 
@@ -115,7 +114,7 @@ public class DisplayManager extends Application {
                 else if (nama.equals("Tab2")) newTab.setContent(new tab_settings(nama));
                 else if (nama.equals("Tab3")) newTab.setContent(new ManajemenBarangView(nama));
                 else if (nama.equals("Tab4")) newTab.setContent(new TabContent(nama));
-//                else if (nama.equals("Tab5")) newTab.setContent(new HistoryView(nama));
+                else if (nama.equals("Tab5")) newTab.setContent(new HistoryView(nama));
                 else if (nama.equals("Tab6")) newTab.setContent(new CustomerListInfoView());
 
                 tabPane.getTabs().add(newTab);

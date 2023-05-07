@@ -55,6 +55,7 @@ public class NonFixedBill implements Serializable {
 
     public HashMap<Barang, Integer> getMapBarang() {
         HashMap<Barang, Integer> mapBrg = new HashMap<>();
+//        Datastore.getInstance().hardCodeBill();
         ArrayList<Barang> arrBarang =  Datastore.getInstance().getArrBarang();
 
         for (Barang barang : arrBarang) {

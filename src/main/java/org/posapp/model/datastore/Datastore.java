@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 @Data
 public class Datastore {
-    private static Datastore instance = new Datastore();
+    private static Datastore instance;
     private ArrayList<Barang> arrBarang;
     private ArrayList<FixedBill> arrFixedBill;
     private ArrayList<Customer> arrCustomer;
@@ -31,10 +31,12 @@ public class Datastore {
 
         hardCodeCustomer();
         hardCodeBarang();
-        hardCodeBill();
     }
 
     public static Datastore getInstance() {
+        if (instance == null) {
+            instance = new Datastore();
+        }
         return instance;
     }
     // semua hard code nnti diapus diganti dengan parser
@@ -48,7 +50,7 @@ public class Datastore {
         nonFix1.addIdBarang(2, 3);
         nonFix1.addIdBarang(3, 2);
 
-        Customer cust1 = new NonMember(1, 1);
+        Customer cust1 = new NonMember(1, 10);
         Customer cust2 = new Member(2, nonFix1, "Bob", "0812241231", new ArrayList<Integer>(Arrays.asList(1,2,3)), 2000, false, false);
         Customer cust3 = new Member(3, nonFix2,"Charlie", "089623734", new ArrayList<Integer>(Arrays.asList(4,5,6)), 3000, false, true);
         Customer cust4 = new Member(4, nonFix1, "Dodo", "082136237", new ArrayList<Integer>(Arrays.asList(7,8,9)), 4000, true, true);
@@ -66,14 +68,10 @@ public class Datastore {
         Barang b5 = new Barang(5, "Regal", "Makanan", 11, 7000, 9000, "path");
         Barang b6 = new Barang(6, "Silver Queen", "Makanan", 21, 19000, 15000, "path");
 
-        arrBarang.add(b1);
-        arrBarang.add(b2);
-        arrBarang.add(b3);
-        arrBarang.add(b4);
-        arrBarang.add(b5);
-        arrBarang.add(b6);
+        ArrayList<Barang> barangList = new ArrayList<>(Arrays.asList(b1, b2, b3, b4, b5, b6));
+        arrBarang.addAll(barangList);
     }
-    private void hardCodeBill() {
+    public void hardCodeBill() {
         NonFixedBill nonFix1 = new NonFixedBill();
         nonFix1.addIdBarang(1, 2);
         nonFix1.addIdBarang(2, 1);
@@ -91,16 +89,23 @@ public class Datastore {
         nonFix4.addIdBarang(5, 4);
 
         FixedBill f1 = new FixedBill(nonFix1.getMapBarang(), 1);
-        FixedBill f2 = new FixedBill(nonFix2.getMapBarang(), 1);
-        FixedBill f3 = new FixedBill(nonFix3.getMapBarang(), 1);
-        FixedBill f4 = new FixedBill(nonFix4.getMapBarang(), 1);
+        FixedBill f2 = new FixedBill(nonFix2.getMapBarang(), 2);
+        FixedBill f3 = new FixedBill(nonFix3.getMapBarang(), 3);
 
-        arrFixedBill.add(f1);
-        arrFixedBill.add(f2);
-        arrFixedBill.add(f3);
-        arrFixedBill.add(f4);
+        FixedBill f4 = new FixedBill(nonFix4.getMapBarang(), 4);
+        FixedBill f5 = new FixedBill(nonFix1.getMapBarang(), 5);
+        FixedBill f6 = new FixedBill(nonFix2.getMapBarang(), 6);
+
+        FixedBill f7 = new FixedBill(nonFix3.getMapBarang(), 7);
+        FixedBill f8 = new FixedBill(nonFix4.getMapBarang(), 8);
+        FixedBill f9 = new FixedBill(nonFix1.getMapBarang(), 9);
+
+        FixedBill f10 = new FixedBill(nonFix1.getMapBarang(), 10);
+
+        ArrayList<FixedBill> FixedBillList = new ArrayList<>(Arrays.asList(f1, f2, f3, f4, f5, f6, f7, f8, f9, f10));
+        arrFixedBill = new ArrayList<>();
+        arrFixedBill.addAll(FixedBillList );
     }
-
 }
 
 

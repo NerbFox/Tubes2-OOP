@@ -24,6 +24,7 @@ public class TranHis {
 
     public TranHis(Customer cust, FixedBill bill) {
         BillID = bill.getIdFixedBill();
+        totalBill = new Float(0);
 
         for (Barang key : bill.getMapBarang().keySet()) {
             Integer value = bill.getMapBarang().get(key);
