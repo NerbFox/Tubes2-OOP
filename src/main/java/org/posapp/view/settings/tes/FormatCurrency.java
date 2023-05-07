@@ -1,4 +1,4 @@
-package org.posapp.view.settings;
+//package org.posapp.view.settings;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.geometry.Pos;
@@ -14,8 +14,8 @@ import javafx.scene.control.ToolBar;
 import javax.swing.*;
 // jbutton
 
-public class format_file extends Pane {
-    public format_file() {
+public class FormatCurrency extends Pane {
+    public FormatCurrency() {
         int width = 450;
         int height = 50;
         // stroke border
@@ -25,7 +25,7 @@ public class format_file extends Pane {
                 "-fx-border-radius: 4px;");
 
         // rectangle box with text No format selected
-        Label labelFormat = new Label("No format selected");
+        Label labelFormat = new Label("No format currency selected");
         labelFormat.setStyle("-fx-border-color: #666666; " +
                 "-fx-border-width: 1px; " +
                 "-fx-background-color: #eeeeee; " +
@@ -47,24 +47,29 @@ public class format_file extends Pane {
                 "-fx-text-fill: #c7c7c7;");
 
         // MenuItems for formatButton
-        MenuItem jsonItem = new MenuItem("JSON");
-        MenuItem xmlItem = new MenuItem("XML");
+        MenuItem usd = new MenuItem("USD");
+        MenuItem yen = new MenuItem("JPY");
+        MenuItem krw = new MenuItem("KRW");
         // event handler
-        jsonItem.setOnAction(event -> {
-            labelFormat.setText("JSON");
+        usd.setOnAction(event -> {
+            labelFormat.setText("USD");
         });
-        xmlItem.setOnAction(event -> {
-            labelFormat.setText("XML");
+        yen.setOnAction(event -> {
+            labelFormat.setText("JPY");
         });
-        jsonItem.setStyle("-fx-pref-width: 428px;");
-        xmlItem.setStyle("-fx-pref-width: 428px;");
+        krw.setOnAction(event -> {
+            labelFormat.setText("KRW");
+        });
+        usd.setStyle("-fx-pref-width: 428px;");
+        yen.setStyle("-fx-pref-width: 428px;");
+        krw.setStyle("-fx-pref-width: 428px;");
 
         // setting up formatButton
         formatButton.setPrefSize(width, height);
         formatButton.setLayoutX(160);
         formatButton.setLayoutY(130);
         formatButton.setAlignment(Pos.CENTER);
-        formatButton.getItems().addAll(jsonItem, xmlItem);
+        formatButton.getItems().addAll(usd, yen, krw);
         formatButton.setPopupSide(Side.BOTTOM);
         getChildren().add(formatButton);
 

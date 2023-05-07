@@ -8,7 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.posapp.view.History.HistoryView;
+import org.posapp.view.LiveClock.LiveClock;
 import org.posapp.view.ManajemenBarang.ManajemenBarangView;
+import org.posapp.view.cashier_menu.CashierMenu;
 import org.posapp.view.customer_list_info.CustomerListInfoView;
 import org.posapp.view.settings.tab_settings;
 
@@ -36,7 +38,7 @@ public class DisplayManager extends Application {
         tabPane = new TabPane();
         root.setCenter(tabPane);
         Tab tab = new Tab("MBV");
-        tab.setContent(new TabContent("MBV"));
+        tab.setContent(new LiveClock("MBV"));
         tabPane.getTabs().add(tab);
 
         Scene scene = new Scene(root, 1080, 720);
@@ -110,8 +112,8 @@ public class DisplayManager extends Application {
 //                    case "Tab4" -> newTab.setContent(new TabContent(nama));
 //                    default -> newTab.setContent(new TabContent(nama));
 //                }
-                if (nama.equals("Tab1")) newTab.setContent(new TabContent(nama));
-                else if (nama.equals("Tab2")) newTab.setContent(new tab_settings(nama));
+                if (nama.equals("Tab1")) newTab.setContent(new tab_settings(nama));
+                else if (nama.equals("Tab2")) newTab.setContent(new CashierMenu());
                 else if (nama.equals("Tab3")) newTab.setContent(new ManajemenBarangView(nama));
                 else if (nama.equals("Tab4")) newTab.setContent(new TabContent(nama));
                 else if (nama.equals("Tab5")) newTab.setContent(new HistoryView(nama));
