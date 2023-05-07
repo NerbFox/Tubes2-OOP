@@ -5,9 +5,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
-public class Barang {
+public class Barang implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer idBarang;
     private String nama;
     private String kategori;

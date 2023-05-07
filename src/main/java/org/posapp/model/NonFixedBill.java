@@ -1,11 +1,14 @@
 package org.posapp.model;
 
 import lombok.Data;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @Data
-public class NonFixedBill {
+public class NonFixedBill implements Serializable {
+    private static final long serialVersionUID = 1L;
     private HashMap<Integer, Integer> mapId;
 
     public NonFixedBill() {
