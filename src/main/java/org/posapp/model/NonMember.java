@@ -3,6 +3,7 @@ package org.posapp.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.posapp.view.custom_components.FixedSizeTable;
+import org.posapp.model.datastore.Datastore;
 
 import java.util.ArrayList;
 

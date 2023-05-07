@@ -2,7 +2,7 @@ package org.posapp.controller.command;
 
 import javafx.collections.FXCollections;
 import org.posapp.model.Customer;
-import org.posapp.model.Datastore;
+import org.posapp.model.datastore.Datastore;
 import org.posapp.model.Member;
 import org.posapp.model.NonMember;
 import org.posapp.view.custom_components.FixedSizeTable;

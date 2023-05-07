@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import lombok.Getter;
 import lombok.Setter;
 import org.posapp.model.Barang;
-import org.posapp.model.Datastore;
+import org.posapp.model.datastore.Datastore;
 import org.posapp.view.ManajemenBarang.DetailBarangView;
 import org.posapp.view.ManajemenBarang.ManajemenBarangView;
 

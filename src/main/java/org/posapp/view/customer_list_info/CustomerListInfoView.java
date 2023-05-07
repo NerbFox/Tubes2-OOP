@@ -13,6 +13,7 @@ import org.posapp.controller.command.RowSelectCommand;
 import org.posapp.controller.command.SaveCommand;
 import org.posapp.model.*;
 import org.posapp.view.custom_components.FixedSizeTable;
+import org.posapp.model.datastore.Datastore;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
