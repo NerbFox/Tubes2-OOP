@@ -38,6 +38,7 @@ public class DisplayManager extends Application {
         root.setCenter(tabPane);
         Tab tab = new Tab("MBV");
         tab.setContent(new LiveClock("MBV"));
+        tab.setClosable(false);
         tabPane.getTabs().add(tab);
 
         Scene scene = new Scene(root, 1080, 720);

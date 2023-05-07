@@ -6,41 +6,88 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.posapp.model.Barang;
 import org.posapp.view.custom_components.FixedSizeSearchBar;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.UnaryOperator;
+
 public class CashierMenu extends GridPane {
 
     ObservableList<String> customerNames;
     ObservableList<String> categoryNames;
+    private CashierItems tableCasItems;
 
+    List<Barang> tmpListBarang = new ArrayList<Barang>(Arrays.asList(
+            new Barang(1, "rokok", "obat", 10, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(2, "teh", "minuman", 11, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(3, "kopi", "minuman", 16, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(4, "tempe", "makanan", 0, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(5, "jagung", "minuman", 32, 100000,3, "file:./src/main/resources/image/50.png"),
+            new Barang(6, "yasudha", "makanan", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(7, "sdfewrg", "minuman", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(8, "agtevbd", "makanan", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(9, "hfjd", "makanan", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(10, "kjntjgnwe", "narkoba", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(11, "habchbe", "makanan", 4, 4,3, "file:./src/main/resources/image/50.png"),
+            new Barang(12, "sabfuie", "CDJAV", 1999, 1000000,3, "file:./src/main/resources/image/50.png"),
+            new Barang(13, "khagf", "makanan", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(14, "uerhgv", "makanan", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(15, "dncbh", "CDJAV", 349, 1,10000000, "file:./src/main/resources/image/50.png"),
+            new Barang(16, "mnxcjveui", "makanan", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(17, "qhuqw", "CDJAV++", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(18, "ndbdbewf", "makanan", 4, 1,3, "file:./src/main/resources/image/50.png"),
+            new Barang(19, "ahgsda", "++++", 4, 1,3, "file:./src/main/resources/image/50.png")
+    ));
 
     public CashierMenu() {
         super();
         this.setPadding(new Insets(20,20,20,20));
-        TextField maxPrice = new TextField();
-        maxPrice.setPromptText("Maximum Price");
-        maxPrice.setPrefHeight(27);
-        maxPrice.setPrefWidth(143);
+
+        TextField maxPrice = new FixedSizeSearchBar(143,27,"Maximum Price", ((oldValue, newValue) -> maximumPriceHandler(newValue)));
+        maxPrice.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>)
+                change -> {
+                    String input = change.getText();
+
+                    if (input.matches("[0-9]*\\.?[0-9]*")){
+                        return change;
+                    } else {
+                        return null;
+                    }
+                }
+        ));
+//        maxPrice.setPromptText("Maximum Price");
+//        maxPrice.setPrefHeight(27);
+//        maxPrice.setPrefWidth(143);
 
 
-        TextField minPrice = new TextField();
-        minPrice.setPromptText("Minimum Price");
-        minPrice.setPrefHeight(27);
-        minPrice.setPrefWidth(143);
+        TextField minPrice = new FixedSizeSearchBar(143,27,"Minimum Price", ((oldValue, newValue) -> minimumPriceHandler(newValue)));
+        minPrice.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>)
+                change -> {
+                    String input = change.getText();
+
+                    if (input.matches("[0-9]*\\.?[0-9]*")){
+                        return change;
+                    } else {
+                        return null;
+                    }
+                }
+        ));
+//        minPrice.setPromptText("Minimum Price");
+//        minPrice.setPrefHeight(27);
+//        minPrice.setPrefWidth(143);
 
 //        FixedSizeSearchBar searchBar = new FixedSizeSearchBar(649, 27, "Search Items Here", )
-        TextField searchBar = new TextField();
-        searchBar.setPromptText("Search Items Here");
-        searchBar.setPrefHeight(27);
-        searchBar.setPrefWidth(649);
+        TextField searchBar = new FixedSizeSearchBar(649,27,"Search Items Here",((oldValue, newValue) -> searchItemHandler(newValue)));
+//        searchBar.setPromptText("Search Items Here");
+//        searchBar.setPrefHeight(27);
+//        searchBar.setPrefWidth(649);
 
         ObservableList<String> items = FXCollections.observableArrayList(
                 "Option 1",
@@ -116,7 +163,8 @@ public class CashierMenu extends GridPane {
         gridLeft.setVgap(25);
         gridLeft.add(searchBar, 0, 0);
         gridLeft.add(filterSearch, 0, 1);
-        gridLeft.add(new CashierItems(), 0, 2);
+        tableCasItems = new CashierItems(tmpListBarang);
+        gridLeft.add(tableCasItems, 0, 2);
 
         // Right grid for selecting bill and checkout
         GridPane gridRight = new GridPane();
@@ -131,6 +179,16 @@ public class CashierMenu extends GridPane {
         this.setVgap(15);
         this.add(gridLeft, 0, 0);
         this.add(gridRight, 1, 0);
+    }
+
+    private void minimumPriceHandler(String newValue) {
+    }
+
+    private void maximumPriceHandler(String newValue) {
+    }
+
+    private void searchItemHandler(String newValue) {
+
     }
 
 //    private void searchHandler(String input) {

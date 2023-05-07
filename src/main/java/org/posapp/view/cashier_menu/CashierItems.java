@@ -3,17 +3,22 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import org.posapp.model.Barang;
+
+import java.util.List;
 
 public class CashierItems extends Group {
-    public CashierItems() {
+    private VBox content;
+
+    public CashierItems(List<Barang> listBarang) {
         super();
         // Create a VBox to hold the content
-        VBox content = new VBox();
+        content = new VBox();
         content.setPadding(new Insets(10));
 
         // Add CashierItem to the VBox
-        for (int i = 0; i < 20; i++) {
-            content.getChildren().add(new CashierItem());
+        for (int i = 0; i < listBarang.size(); i++) {
+            content.getChildren().add(new CashierItem(listBarang.get(i)));
             if (i % 2 == 1) {
                 content.getChildren().get(i).setStyle("-fx-background-color: #D9D9D9");
             }
