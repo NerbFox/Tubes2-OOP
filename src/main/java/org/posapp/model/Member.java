@@ -15,8 +15,8 @@ public class Member extends Customer {
     Integer poin;
     Boolean frozen;
     Boolean vipStatus;
-    public Member(Integer idCust, String name, String phone, ArrayList<Integer> arrFixedBillId, Integer poin, Boolean frozen, Boolean vipStatus) {
-        super(idCust);
+    public Member(Integer idCust, NonFixedBill bill, String name, String phone, ArrayList<Integer> arrFixedBillId, Integer poin, Boolean frozen, Boolean vipStatus) {
+        super(idCust, bill);
         this.name = name;
         this.phone = phone;
         this.arrFixedBillId = arrFixedBillId;
@@ -29,7 +29,7 @@ public class Member extends Customer {
         return vipStatus ? "VIP Member" : "Normal Member";
     }
 
-    public ArrayList<FixedBill> arrFixedBill() {
+    public ArrayList<FixedBill> getArrFixedBill() {
         ArrayList<FixedBill> allFixedBill = Datastore.getInstance().getArrFixedBill();
         ArrayList<FixedBill> userFixedBill = new ArrayList<>();
 

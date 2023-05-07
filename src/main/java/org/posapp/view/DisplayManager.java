@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.posapp.view.History.HistoryView;
 import org.posapp.view.ManajemenBarang.ManajemenBarangView;
+import org.posapp.view.customer_list_info.CustomerListInfoView;
 import org.posapp.view.settings.tab_settings;
 
 import java.util.Arrays;
@@ -71,7 +72,10 @@ public class DisplayManager extends Application {
         MenuItem btn5 = new MenuItem("Tab5");
         btn5.setOnAction(new AddTabHandler("Tab5"));
 
-        dropDownBtn.getItems().addAll(btn3, btn4, btn5);
+        MenuItem btn6 = new MenuItem("Tab6");
+        btn6.setOnAction(new AddTabHandler("Tab6"));
+
+        dropDownBtn.getItems().addAll(btn3, btn4, btn5, btn6);
 
         toolbar.getItems().addAll(btn1, btn2, dropDownBtn);
 
@@ -111,6 +115,7 @@ public class DisplayManager extends Application {
                 else if (nama.equals("Tab3")) newTab.setContent(new ManajemenBarangView(nama));
                 else if (nama.equals("Tab4")) newTab.setContent(new TabContent(nama));
                 else if (nama.equals("Tab5")) newTab.setContent(new HistoryView(nama));
+                else if (nama.equals("Tab6")) newTab.setContent(new CustomerListInfoView());
 
                 tabPane.getTabs().add(newTab);
                 tabPane.getSelectionModel().select(newTab);

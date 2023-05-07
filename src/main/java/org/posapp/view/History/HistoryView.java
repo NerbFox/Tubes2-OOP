@@ -7,8 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import org.posapp.model.Barang;
+import org.posapp.model.*;
 
+import org.posapp.model.datastore.Datastore;
 import org.posapp.view.custom_components.FixedSizeSearchBar;
 import org.posapp.view.custom_components.FixedSizeTable;
 
@@ -25,32 +26,7 @@ public class HistoryView extends Pane {
     VBox rightSideLayout;
     HBox layout;
 
-    List<Barang> items1 = new ArrayList<Barang>(Arrays.asList(
-            new Barang(1, "rokok", "obat", 10, 1,3, "url"),
-            new Barang(2, "teh", "minuman", 11, 1,3, "url"),
-            new Barang(3, "kopi", "minuman", 16, 1,3, "url"),
-            new Barang(4, "tempe", "makanan", 0, 1,3, "url")
-    ));
-
-    List<Barang> items2 = new ArrayList<Barang>(Arrays.asList(
-            new Barang(1, "rokok", "obat", 10, 1,3, "url"),
-            new Barang(2, "teh", "minuman", 11, 1,3, "url"),
-            new Barang(3, "kopi", "minuman", 16, 1,3, "url"),
-            new Barang(4, "tempe", "makanan", 0, 1,3, "url"),
-            new Barang(4, "jagung", "minuman", 32, 100000,3, "url"),
-            new Barang(4, "yasudha", "makanan", 4, 1,3, "url")
-    ));
-
-    List<TranHis> itemstesttable1 = new ArrayList<TranHis>(Arrays.asList(
-            new TranHis(1,"2023-01-1419:55;34", "12123200",1,"Hanan","VIP", "082222222",items1),
-            new TranHis(2,"2023-01-1419:55;34", "121200",2,"joko","VIP", "082222222",items1),
-            new TranHis(3,"2023-01-1419:55;34", "12123200",3,"wi","VIP", "0822222223",items2),
-            new TranHis(4,"2023-01-1419:55;34", "121200",4,"yoman","Member", "082222222",items2),
-            new TranHis(5,"2023-01-1419:55;34", "121223200",1,"Hanan","VIP", "082222222",items2),
-            new TranHis(6,"2023-01-1419:55;34", "12112100",1,"Hanan","VIP", "082222222",items1)
-    ));
-
-    TranHis itemsdefault = new TranHis(4,"2023-01-14\n19:55;34", "121200",4,"yoman","Member", "082222222",items2);
+    List<TranHis> data;
 
     public HistoryView(String nama){
         layout = new HBox();
@@ -76,8 +52,8 @@ public class HistoryView extends Pane {
         Label hislab = new Label(("Transaction History"));
         hislab.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 
-        String[] headers = new String[] {"BillID", "Date", "TotalBill"};
-        table1 = new FixedSizeTable<TranHis>(520, 440, headers, headers, itemstesttable1.toArray(new TranHis[0]), this::onRowSelect);
+        String[] headers = new String[] {"BillID", "TotalBill"};
+        table1 = new FixedSizeTable<TranHis>(520, 440, headers, headers, data.toArray(new TranHis[0]), this::onRowSelect);
 
         leftSideLayout.getChildren().addAll(searchIDPane, hislab, table1);
         leftSideLayout.setPadding(new Insets(20, 20, 20, 20));
@@ -104,5 +80,20 @@ public class HistoryView extends Pane {
 
     private void onRowSelect(TranHis selectedItem){
         layout.getChildren().set(1, new DetailHistoryView(selectedItem));
+    }
+
+    private void initData() {
+        data = new ArrayList<TranHis>();
+        ArrayList<Customer> arrCustomer = Datastore.getInstance().getArrCustomer();
+
+        for (Customer cust :  arrCustomer) {
+            if (cust instanceof Member) {
+                for (FixedBill bill : ((Member) cust).getArrFixedBill()) {
+                    data.add(new TranHis(cust, bill));
+                }
+            } else {
+                data.add(new TranHis(cust, ((NonMember) cust).getFixedBill()));
+            }
+        }
     }
 }
