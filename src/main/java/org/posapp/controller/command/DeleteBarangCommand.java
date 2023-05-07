@@ -1,6 +1,6 @@
-package org.posapp.controller.manajemen_barang;
+package org.posapp.controller.command;
 
-import org.posapp.controller.Command;
+import org.posapp.controller.command.Command;
 import org.posapp.view.ManajemenBarang.DetailBarangView;
 import org.posapp.view.ManajemenBarang.ManajemenBarangView;
 

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import lombok.Getter;
 import lombok.Setter;
 import org.posapp.model.Barang;
+import org.posapp.model.Datastore;
 import org.posapp.view.ManajemenBarang.DetailBarangView;
 import org.posapp.view.ManajemenBarang.ManajemenBarangView;
 
@@ -14,16 +15,12 @@ import java.util.List;
 @Getter @Setter
 public class ManajemenBarangController {
     private ManajemenBarangView view;
-    private List<Barang> model = new ArrayList<Barang>(Arrays.asList(
-            new Barang(1, "rokok", "obat", 10, 1,3, "url"),
-            new Barang(2, "teh", "minuman", 11, 1,3, "url"),
-            new Barang(3, "kopi", "minuman", 16, 1,3, "url"),
-            new Barang(4, "tempe", "makanan", 0, 1,3, "url")
-    ));
+    private Datastore model;
     static Integer greatestID;
 
-    public ManajemenBarangController(ManajemenBarangView _view){
+    public ManajemenBarangController(ManajemenBarangView _view) {
         view = _view;
+        model = Datastore.getInstance();
     }
 
     public void addBarang(){
@@ -32,25 +29,30 @@ public class ManajemenBarangController {
         //        view.getLayout().getChildren().set(1, new DetailBarangView(new Barang(-1, "", "", 0, 0, 0, ""), view));
     }
 
-    public void updateBarang(Barang item, String nama, String kategori, int stok, int hargaJual, int hargaBeli, String pathGambar){
+    public void updateBarang(Barang item, String nama, String kategori, String stok, String hargaJual, String hargaBeli, String pathGambar) throws InvalidInputException {
         if (item.getIdBarang() != -1) {
-            model.remove(item);
+            model.getArrBarang().remove(item);
+
         }
         else {
-            item.setIdBarang(model.size() + 1);
+            item.setIdBarang(model.getArrBarang().size() + 1);
         }
         item.setNama(nama);
         item.setKategori(kategori);
-        item.setStok(stok);
-        item.setHargaJual(hargaJual);
-        item.setHargaBeli(hargaBeli);
-        item.setPathGambar(pathGambar);
-        model.add(item);
-        view.getTable().setItems(FXCollections.observableArrayList(model));
+        try {
+            item.setStok(Integer.parseInt(stok));
+            item.setHargaJual(Float.parseFloat(hargaJual));
+            item.setHargaBeli(Float.parseFloat(hargaBeli));
+            item.setPathGambar(pathGambar);
+            model.getArrBarang().add(item);
+            view.getTable().setItems(FXCollections.observableArrayList(model.getArrBarang()));
+        } catch (Exception err) {
+            throw new InvalidInputException("Format Input Harga Jual atau Harga Beli Tidak Valid.");
+        }
     }
 
     public void deleteBarang(Barang item){
-        model.remove(item);
-        view.getTable().setItems(FXCollections.observableArrayList(model));
+        model.getArrBarang().remove(item);
+        view.getTable().setItems(FXCollections.observableArrayList(model.getArrBarang()));
     }
 }

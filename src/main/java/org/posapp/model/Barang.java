@@ -12,7 +12,7 @@ public class Barang {
     private String nama;
     private String kategori;
     private int stok;
-    private int hargaJual;
-    private int hargaBeli;
+    private float hargaJual;
+    private float hargaBeli;
     private String pathGambar;
 }
