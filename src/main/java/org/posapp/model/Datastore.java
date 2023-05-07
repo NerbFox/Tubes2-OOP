@@ -13,7 +13,12 @@ public class Datastore {
 
     private Datastore() {
         // nnti isi attribut menggunakan parser
-        this.arrBarang = new ArrayList<>();
+        this.arrBarang = new ArrayList<Barang>(Arrays.asList(
+                new Barang(1, "rokok", "obat", 10, 1,3, "url"),
+                new Barang(2, "teh", "minuman", 11, 1,3, "url"),
+                new Barang(3, "kopi", "minuman", 16, 1,3, "url"),
+                new Barang(4, "tempe", "makanan", 0, 1,3, "url")
+        ));
         this.arrFixedBill = new ArrayList<>();
         this.arrCustomer = new ArrayList<>();
 
