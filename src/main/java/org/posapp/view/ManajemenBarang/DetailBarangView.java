@@ -46,6 +46,7 @@ public class DetailBarangView extends VBox{
         }
         Image image = new Image("file:" + selectedFile, 150, 150, true, true);
         ImageView imageView = new ImageView((image));
+        setMargin(imageView, new Insets(20, 0, 0 ,100));
 
         Label namaLabel = new Label("Nama");
         namaField = new TextField();
@@ -146,13 +147,13 @@ public class DetailBarangView extends VBox{
         HBox.setMargin(btnSave, new Insets(0, 0, 0, 110));
         setMargin(buttons, new Insets(10, 0, 0, 0));
 
-        setAlignment(Pos.CENTER);
-        setMargin(namaLabel, new Insets(0,360,0,0));
-        setMargin(katLabel, new Insets(10,340,0,0));
-        setMargin(stokLabel, new Insets(10,370,0,0));
-        setMargin(beliLabel, new Insets(10,320,0,0));
-        setMargin(jualLabel, new Insets(10,320,0,0));
-//        setMargin(pathLabel, new Insets(10,0,0,0));
+//        setAlignment(Pos.CENTER);
+        setMargin(namaLabel, new Insets(0,0,0,0));
+        setMargin(katLabel, new Insets(10,0,0,0));
+        setMargin(stokLabel, new Insets(10,0,0,0));
+        setMargin(beliLabel, new Insets(10,0,0,0));
+        setMargin(jualLabel, new Insets(10,0,0,0));
+        setMargin(pathLabel, new Insets(10,0,0,0));
 //
         btnSave.disableProperty().bind(Bindings.isEmpty(namaField.textProperty()).or(Bindings.isEmpty(katField.textProperty())));
 
