@@ -52,7 +52,7 @@ public class ManajemenBarangView extends Pane {
         leftSideLayout.getChildren().addAll(searchPane, table, btnPane);
         leftSideLayout.setPadding(new Insets(20, 20, 20, 20));
 
-        rightSideLayout = new DetailBarangView (new Barang(-1, "", "", 0, 0,0, "url"), this);
+        rightSideLayout = new DetailBarangView (new Barang(-1, "", "", 0, (float) 0, (float) 0, "url"), this);
 
         layout.getChildren().addAll(leftSideLayout, rightSideLayout);
         this.getChildren().add(layout);

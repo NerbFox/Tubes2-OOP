@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.posapp.controller.currency.CurrencyWrapper;
 
 import java.io.Serializable;
 
@@ -15,7 +16,14 @@ public class Barang implements Serializable {
     private String nama;
     private String kategori;
     private int stok;
-    private float hargaJual;
-    private float hargaBeli;
+    private Float hargaJual;
+    private Float hargaBeli;
     private String pathGambar;
+
+    public Float getHargaJual() {
+        return CurrencyWrapper.getInstance().getConvertedCurrency(hargaJual);
+    }
+    public Float getHargaBeli() {
+        return CurrencyWrapper.getInstance().getConvertedCurrency(hargaBeli);
+    }
 }

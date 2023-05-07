@@ -24,7 +24,7 @@ public class ManajemenBarangController {
     }
 
     public void addBarang(){
-        view.setRightSideLayout(new DetailBarangView(new Barang(-1, "", "", 0, 0, 0, ""), view));
+        view.setRightSideLayout(new DetailBarangView(new Barang(-1, "", "", 0, (float) 0, (float) 0, ""), view));
         view.getLayout().getChildren().set(1, view.getRightSideLayout());
         //        view.getLayout().getChildren().set(1, new DetailBarangView(new Barang(-1, "", "", 0, 0, 0, ""), view));
     }

@@ -12,10 +12,10 @@ public class Member extends Customer {
     String name;
     String phone;
     ArrayList<Integer> arrFixedBillId;
-    Integer poin;
+    Float poin;
     Boolean frozen;
     Boolean vipStatus;
-    public Member(Integer idCust, NonFixedBill bill, String name, String phone, ArrayList<Integer> arrFixedBillId, Integer poin, Boolean frozen, Boolean vipStatus) {
+    public Member(Integer idCust, NonFixedBill bill, String name, String phone, ArrayList<Integer> arrFixedBillId, Float poin, Boolean frozen, Boolean vipStatus) {
         super(idCust, bill);
         this.name = name;
         this.phone = phone;

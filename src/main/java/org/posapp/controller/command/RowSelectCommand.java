@@ -1,5 +1,7 @@
 package org.posapp.controller.command;
 
+import org.posapp.controller.currency.Currency;
+import org.posapp.controller.currency.CurrencyWrapper;
 import org.posapp.model.Customer;
 import org.posapp.model.Member;
 import org.posapp.view.customer_list_info.CustomerInfoDetail;
@@ -20,7 +22,9 @@ public class RowSelectCommand implements Command {
         if (selectedItem instanceof Member) {
             detail.setTextName(((Member) selectedItem).getName());
             detail.setTextPhone(((Member) selectedItem).getPhone());
-            detail.setTextPoints(((Member) selectedItem).getPoin().toString());
+            Float convertedVal = CurrencyWrapper.getInstance().getConvertedCurrency(((Member) selectedItem).getPoin().floatValue());
+            detail.setTextPoints(convertedVal.toString());
+
         } else {
             detail.clear();
         }

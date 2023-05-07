@@ -21,7 +21,7 @@ public class NonMember extends Customer {
     public Member makeMember(String name, String phone) {
         ArrayList<Integer> newFixBillId = new ArrayList<>();
         newFixBillId.add(fixedBillID);
-        Member newMember = new Member(getIdCust(), getCurrentBill(), name, phone, newFixBillId, 0, false, false);
+        Member newMember = new Member(getIdCust(), getCurrentBill(), name, phone, newFixBillId, (float) 0, false, false);
         return newMember;
     }
 

@@ -1,6 +1,6 @@
 package org.posapp.controller.currency;
 
-class CurrencyWrapper implements Currency {
+public class CurrencyWrapper implements Currency {
     private static CurrencyWrapper instance;
     private Currency currency;
 
@@ -21,5 +21,6 @@ class CurrencyWrapper implements Currency {
     public String getCodeCurrency() {
         return currency.getCodeCurrency();
     }
+    public Float getConvertedCurrencyBack(Float amount) {return currency.getConvertedCurrencyBack(amount);}
 
 }

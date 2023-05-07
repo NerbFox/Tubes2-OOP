@@ -51,9 +51,9 @@ public class Datastore {
         nonFix1.addIdBarang(3, 2);
 
         Customer cust1 = new NonMember(1, 10);
-        Customer cust2 = new Member(2, nonFix1, "Bob", "0812241231", new ArrayList<Integer>(Arrays.asList(1,2,3)), 2000, false, false);
-        Customer cust3 = new Member(3, nonFix2,"Charlie", "089623734", new ArrayList<Integer>(Arrays.asList(4,5,6)), 3000, false, true);
-        Customer cust4 = new Member(4, nonFix1, "Dodo", "082136237", new ArrayList<Integer>(Arrays.asList(7,8,9)), 4000, true, true);
+        Customer cust2 = new Member(2, nonFix1, "Bob", "0812241231", new ArrayList<Integer>(Arrays.asList(1,2,3)), 2000F, false, false);
+        Customer cust3 = new Member(3, nonFix2,"Charlie", "089623734", new ArrayList<Integer>(Arrays.asList(4,5,6)), 3000F, false, true);
+        Customer cust4 = new Member(4, nonFix1, "Dodo", "082136237", new ArrayList<Integer>(Arrays.asList(7,8,9)), 4000F, true, true);
         arrCustomer.add(cust1);
         arrCustomer.add(cust2);
         arrCustomer.add(cust3);
@@ -61,12 +61,12 @@ public class Datastore {
     }
 
     private void hardCodeBarang() {
-        Barang b1 = new Barang(1, "Teh botol", "Minuman", 4, 5000, 4000, "file:./src/main/resources/image/50.png");
-        Barang b2 = new Barang(2, "Pringless", "Makanan", 14, 13000, 10000, "file:./src/main/resources/image/50.png");
-        Barang b3 = new Barang(3, "Kntl Manis", "Minuman", 9, 8000, 6000, "file:./src/main/resources/image/50.png");
-        Barang b4 = new Barang(4, "Susu UHT Frisian Flag", "Minuman", 19, 17000, 14000, "file:./src/main/resources/image/50.png");
-        Barang b5 = new Barang(5, "Regal", "Makanan", 11, 7000, 9000, "file:./src/main/resources/image/50.png");
-        Barang b6 = new Barang(6, "Silver Queen", "Makanan", 21, 19000, 15000, "file:./src/main/resources/image/50.png");
+        Barang b1 = new Barang(1, "Teh botol", "Minuman", 4, 5000F, 4000F, "file:./src/main/resources/image/50.png");
+        Barang b2 = new Barang(2, "Pringless", "Makanan", 14, 13000F, 10000F, "file:./src/main/resources/image/50.png");
+        Barang b3 = new Barang(3, "Kntl Manis", "Minuman", 9, 8000F, 6000F, "file:./src/main/resources/image/50.png");
+        Barang b4 = new Barang(4, "Susu UHT Frisian Flag", "Minuman", 19, 17000F, 14000F, "file:./src/main/resources/image/50.png");
+        Barang b5 = new Barang(5, "Regal", "Makanan", 11, 7000F, 9000F, "file:./src/main/resources/image/50.png");
+        Barang b6 = new Barang(6, "Silver Queen", "Makanan", 21, 19000F, 15000F, "file:./src/main/resources/image/50.png");
 
         ArrayList<Barang> barangList = new ArrayList<>(Arrays.asList(b1, b2, b3, b4, b5, b6));
         arrBarang.addAll(barangList);

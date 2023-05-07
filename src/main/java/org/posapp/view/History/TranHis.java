@@ -2,6 +2,7 @@ package org.posapp.view.History;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.posapp.controller.currency.CurrencyWrapper;
 import org.posapp.model.Barang;
 import org.posapp.model.Customer;
 import org.posapp.model.FixedBill;
@@ -29,10 +30,12 @@ public class TranHis {
         for (Barang key : bill.getMapBarang().keySet()) {
             Integer value = bill.getMapBarang().get(key);
             totalBill += key.getHargaJual() * value;
+
         }
         DecimalFormat df = new DecimalFormat("#.##");
         String formattedValue = df.format(totalBill);
         totalBill = Float.parseFloat(formattedValue);
+
 
         ID = cust.getIdCust();
         if (cust instanceof Member) {
