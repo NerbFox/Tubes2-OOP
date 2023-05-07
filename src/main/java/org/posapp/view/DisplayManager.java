@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.posapp.view.History.HistoryView;
 import org.posapp.view.ManajemenBarang.ManajemenBarangView;
+import org.posapp.view.cashier_menu.CashierMenu;
 import org.posapp.view.settings.tab_settings;
 
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class DisplayManager extends Application {
         tabPane = new TabPane();
         root.setCenter(tabPane);
         Tab tab = new Tab("MBV");
-        tab.setContent(new HistoryView("MBV"));
+        tab.setContent(new TabContent("MBV"));
         tabPane.getTabs().add(tab);
 
         Scene scene = new Scene(root, 1080, 720);
@@ -68,7 +69,10 @@ public class DisplayManager extends Application {
         MenuItem btn4 = new MenuItem("Tab4");
         btn4.setOnAction(new AddTabHandler("Tab4"));
 
-        dropDownBtn.getItems().addAll(btn3, btn4);
+        MenuItem btn5 = new MenuItem("Tab5");
+        btn5.setOnAction(new AddTabHandler("Tab5"));
+
+        dropDownBtn.getItems().addAll(btn3, btn4, btn5);
 
         toolbar.getItems().addAll(btn1, btn2, dropDownBtn);
 
@@ -103,9 +107,11 @@ public class DisplayManager extends Application {
 //                    case "Tab4" -> newTab.setContent(new TabContent(nama));
 //                    default -> newTab.setContent(new TabContent(nama));
 //                }
-                if (nama.equals("Tab1")) newTab.setContent(new TabContent(nama));
-                else if (nama.equals("Tab2")) newTab.setContent(new tab_settings(nama));
+                if (nama.equals("Tab1")) newTab.setContent(new tab_settings(nama));
+                else if (nama.equals("Tab2")) newTab.setContent(new CashierMenu());
                 else if (nama.equals("Tab3")) newTab.setContent(new ManajemenBarangView(nama));
+                else if (nama.equals("Tab4")) newTab.setContent(new TabContent(nama));
+                else if (nama.equals("Tab5")) newTab.setContent(new HistoryView(nama));
 
                 tabPane.getTabs().add(newTab);
                 tabPane.getSelectionModel().select(newTab);
