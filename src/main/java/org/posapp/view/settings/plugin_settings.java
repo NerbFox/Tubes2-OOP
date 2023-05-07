@@ -224,5 +224,4 @@ public class plugin_settings extends Pane {
         scrollPane.setFitToWidth(true); // set the width of the ScrollPane to match its parent
         getChildren().add(scrollPane); // add the elements to the root VBox
     }
-
 }

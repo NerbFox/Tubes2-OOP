@@ -2,29 +2,40 @@ package org.posapp.view.cashier_menu;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.posapp.model.Barang;
 
 public class CashierItem extends HBox {
+    private Barang tmpBarang;
 
-    CashierItem() {
+
+    // dummy
+
+    CashierItem(Barang tmpBarang) {
         super(10);
-        Label itemLabel = new Label("Barang 1");
+//        tmpBarang = new Barang(1, "rokok", "obat", 10, 1,3, "file:./src/main/resources/image/50.png");
+
+        Label itemLabel = new Label(tmpBarang.getNama());
         itemLabel.setStyle(" -fx-font-size: 14");
-        Label categoryLabel = new Label("Kategori");
-        Label stockLabel = new Label("Stok");
-        Label priceLabel = new Label("USD 100");
+        Label categoryLabel = new Label(tmpBarang.getKategori());
+        Label stockLabel = new Label("Stok: " +Integer.toString(tmpBarang.getStok()));
+        Label priceLabel = new Label("USD " + Float.toString(tmpBarang.getHargaJual()));
 
         double height = 52;
         double width = 632;
         this.setPrefHeight(height);
         this.setPrefWidth(width);
-        Image image = new Image("file:/home/hanifmz07/oop/Tubes2-OOP/src/main/resources/50.png");
+
+        Button imgButtonSelect = new Button();
+        Image image = new Image(tmpBarang.getPathGambar());
         ImageView imageView = new ImageView(image);
-        HBox.setMargin(imageView, new Insets(5,5,5,5));
+        imgButtonSelect.setGraphic(imageView);
+//        HBox.setMargin(imgButtonSelect, new Insets(5,5,5,5));
 
         GridPane itemDetails = new GridPane();
 
@@ -38,7 +49,7 @@ public class CashierItem extends HBox {
         categoryLabel.setPadding(new Insets(0,0,0,0));
         stockLabel.setPadding(new Insets(0,0,0,0));
 
-        this.getChildren().addAll(imageView, itemDetails, priceLabel);
+        this.getChildren().addAll(imgButtonSelect, itemDetails, priceLabel);
         priceLabel.setAlignment(Pos.CENTER);
 
         HBox.setMargin(priceLabel, new Insets(height / 2,0,height / 2,230));

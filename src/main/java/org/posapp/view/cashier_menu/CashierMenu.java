@@ -5,64 +5,106 @@ import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.posapp.model.Barang;
+import org.posapp.model.Customer;
+import org.posapp.model.Member;
+import org.posapp.model.datastore.Datastore;
 import org.posapp.view.custom_components.FixedSizeSearchBar;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.UnaryOperator;
 
 public class CashierMenu extends GridPane {
 
     ObservableList<String> customerNames;
     ObservableList<String> categoryNames;
+    private CashierItems tableCasItems;
 
+    private ArrayList<Barang> tmpListBarang = Datastore.getInstance().getArrBarang();
+    private ArrayList<Customer> customers = Datastore.getInstance().getArrCustomer();
 
     public CashierMenu() {
         super();
         this.setPadding(new Insets(20,20,20,20));
-        TextField maxPrice = new TextField();
-        maxPrice.setPromptText("Maximum Price");
-        maxPrice.setPrefHeight(27);
-        maxPrice.setPrefWidth(143);
+
+        GridPane gridLeft = new GridPane();
+        GridPane gridRight = new GridPane();
+
+        TextField maxPrice = new FixedSizeSearchBar(143,27,"Maximum Price", ((oldValue, newValue) -> maximumPriceHandler(newValue, gridLeft)));
+        maxPrice.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>)
+                change -> {
+                    String input = change.getText();
+
+                    if (input.matches("[0-9]*\\.?[0-9]*")){
+                        return change;
+                    } else {
+                        return null;
+                    }
+                }
+        ));
+//        maxPrice.setPromptText("Maximum Price");
+//        maxPrice.setPrefHeight(27);
+//        maxPrice.setPrefWidth(143);
 
 
-        TextField minPrice = new TextField();
-        minPrice.setPromptText("Minimum Price");
-        minPrice.setPrefHeight(27);
-        minPrice.setPrefWidth(143);
+        TextField minPrice = new FixedSizeSearchBar(143,27,"Minimum Price", ((oldValue, newValue) -> minimumPriceHandler(newValue, gridLeft)));
+        minPrice.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>)
+                change -> {
+                    String input = change.getText();
+
+                    if (input.matches("[0-9]*\\.?[0-9]*")){
+                        return change;
+                    } else {
+                        return null;
+                    }
+                }
+        ));
+//        minPrice.setPromptText("Minimum Price");
+//        minPrice.setPrefHeight(27);
+//        minPrice.setPrefWidth(143);
 
 //        FixedSizeSearchBar searchBar = new FixedSizeSearchBar(649, 27, "Search Items Here", )
-        TextField searchBar = new TextField();
-        searchBar.setPromptText("Search Items Here");
-        searchBar.setPrefHeight(27);
-        searchBar.setPrefWidth(649);
+        TextField searchBar = new FixedSizeSearchBar(649,27,"Search Items Here",((oldValue, newValue) -> searchItemHandler(newValue,gridLeft)));
+//        searchBar.setPromptText("Search Items Here");
+//        searchBar.setPrefHeight(27);
+//        searchBar.setPrefWidth(649);
 
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "Option 1",
-                "Option 2",
-                "Option 3",
-                "Option 4",
-                "Option 5"
-        );
-        ObservableList<String> customers = FXCollections.observableArrayList(
-                "Customer 1",
-                "Customer 2",
-                "Customer 3",
-                "Customer 4",
-                "Customer 5"
-        );
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (Barang barang : tmpListBarang) {
+            if (!items.contains(barang.getKategori())) {
+                items.add(barang.getKategori());
+            }
+        }
+
+
+        ObservableList<String> namaCustomers = FXCollections.observableArrayList();
+        for (Customer cus : customers) {
+            if (cus instanceof Member) {
+                if (!namaCustomers.contains(cus.getIdCust())) {
+                    namaCustomers.add(((Member) cus).getName());
+                }
+            }
+        }
+        System.out.println(namaCustomers);
+
         ComboBox<String> categoryDropdown = new ComboBox<>(items);
         categoryDropdown.setPrefHeight(27);
         categoryDropdown.setPrefWidth(212);
         categoryDropdown.setPromptText("Select Category");
         categoryDropdown.setEditable(true);
+        categoryDropdown.setOnAction(e -> {
+            categorySelectedHandler(categoryDropdown.getSelectionModel().getSelectedItem(), gridLeft);
+        });
 
-        ComboBox<String> customerDropdown = new ComboBox<>(customers);
+        ComboBox<String> customerDropdown = new ComboBox<>(namaCustomers);
         customerDropdown.setPrefWidth(189);
         customerDropdown.setPrefHeight(27);
         customerDropdown.setPromptText("Select Customer");
@@ -112,14 +154,15 @@ public class CashierMenu extends GridPane {
         customerSelectAndBill.setHgap(40);
 
         // Left grid for selecting items
-        GridPane gridLeft = new GridPane();
+//        GridPane gridLeft = new GridPane();
         gridLeft.setVgap(25);
         gridLeft.add(searchBar, 0, 0);
         gridLeft.add(filterSearch, 0, 1);
-        gridLeft.add(new CashierItems(), 0, 2);
+        tableCasItems = new CashierItems(tmpListBarang);
+        gridLeft.add(tableCasItems, 0, 2);
 
         // Right grid for selecting bill and checkout
-        GridPane gridRight = new GridPane();
+//        GridPane gridRight = new GridPane();
         gridRight.setPadding(new Insets(50,0,0,0));
         gridRight.setVgap(25);
         gridRight.add(customerSelectAndBill, 0, 0);
@@ -132,6 +175,79 @@ public class CashierMenu extends GridPane {
         this.add(gridLeft, 0, 0);
         this.add(gridRight, 1, 0);
     }
+
+    private void categorySelectedHandler(String input, GridPane gridLeft) {
+        if (input.isEmpty()){
+            tableCasItems = new CashierItems(tmpListBarang);
+        } else {
+            ObservableList<Barang> searchResult = FXCollections.observableArrayList();
+            for (Barang item : tmpListBarang){
+                if (item.getKategori().contains(input)) {
+                    searchResult.add(item);
+                }
+            }
+            ArrayList<Barang> arrayListResult = new ArrayList<>(searchResult);
+            Node node = gridLeft.getChildren().get(2);
+            gridLeft.getChildren().remove(node);
+            tableCasItems = new CashierItems(arrayListResult);
+        }
+        gridLeft.add(tableCasItems,0,2);
+    }
+
+    private void minimumPriceHandler(String input, GridPane gridLeft) {
+        if (input.isEmpty()){
+            tableCasItems = new CashierItems(tmpListBarang);
+        } else {
+            ObservableList<Barang> searchResult = FXCollections.observableArrayList();
+            for (Barang item : tableCasItems.getContentBarang()){
+                if (item.getHargaJual() >= Integer.parseInt(input)) {
+                    searchResult.add(item);
+                }
+            }
+            ArrayList<Barang> arrayListResult = new ArrayList<>(searchResult);
+            Node node = gridLeft.getChildren().get(2);
+            gridLeft.getChildren().remove(node);
+            tableCasItems = new CashierItems(arrayListResult);
+        }
+        gridLeft.add(tableCasItems,0,2);
+    }
+
+    private void maximumPriceHandler(String input, GridPane gridLeft) {
+        if (input.isEmpty()){
+            tableCasItems = new CashierItems(tmpListBarang);
+        } else {
+            ObservableList<Barang> searchResult = FXCollections.observableArrayList();
+            for (Barang item : tableCasItems.getContentBarang()){
+                if (item.getHargaJual() <= Integer.parseInt(input)) {
+                    searchResult.add(item);
+                }
+            }
+            ArrayList<Barang> arrayListResult = new ArrayList<>(searchResult);
+            Node node = gridLeft.getChildren().get(2);
+            gridLeft.getChildren().remove(node);
+            tableCasItems = new CashierItems(arrayListResult);
+        }
+        gridLeft.add(tableCasItems,0,2);
+    }
+
+    private void searchItemHandler(String input, GridPane gridLeft) {
+        if (input.isEmpty()){
+            tableCasItems = new CashierItems(tmpListBarang);
+        } else {
+            ObservableList<Barang> searchResult = FXCollections.observableArrayList();
+            for (Barang item : tableCasItems.getContentBarang()){
+                if (item.getNama().toLowerCase().contains(input)) {
+                    searchResult.add(item);
+                }
+            }
+            ArrayList<Barang> arrayListResult = new ArrayList<>(searchResult);
+            Node node = gridLeft.getChildren().get(2);
+            gridLeft.getChildren().remove(node);
+            tableCasItems = new CashierItems(arrayListResult);
+        }
+        gridLeft.add(tableCasItems,0,2);
+    }
+}
 
 //    private void searchHandler(String input) {
 //        if (input.isEmpty()){
@@ -147,4 +263,4 @@ public class CashierMenu extends GridPane {
 //        }
 //        table.setItems(searchResult);
 //    }
-}
+

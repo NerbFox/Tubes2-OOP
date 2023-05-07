@@ -27,7 +27,7 @@ public class BillItem extends HBox {
         this.setPadding(new Insets(2,1,2,1));
 
         Button editButton = new Button();
-        Image image = new Image("file:/home/hanifmz07/oop/Tubes2-OOP/src/main/resources/editing.png");
+        Image image = new Image("file:./src/main/resources/image/editing.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(19);
         imageView.setFitWidth(19);

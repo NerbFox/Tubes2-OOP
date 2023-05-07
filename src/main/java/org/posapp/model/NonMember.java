@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class NonMember extends Customer {
     Integer fixedBillID;
     public NonMember(Integer idCust, Integer fixedBillID) {
-        super(idCust);
+        super(idCust, new NonFixedBill());
         this.fixedBillID = fixedBillID;
     }
     public String getMemberStatus() {
@@ -21,13 +21,13 @@ public class NonMember extends Customer {
     public Member makeMember(String name, String phone) {
         ArrayList<Integer> newFixBillId = new ArrayList<>();
         newFixBillId.add(fixedBillID);
-        Member newMember = new Member(getIdCust(), name, phone, newFixBillId, 0, false, false);
+        Member newMember = new Member(getIdCust(), getCurrentBill(), name, phone, newFixBillId, 0, false, false);
         return newMember;
     }
 
     public FixedBill getFixedBill() {
+        Datastore.getInstance().hardCodeBill();
         ArrayList<FixedBill> allFixedBill = Datastore.getInstance().getArrFixedBill();
-        ArrayList<FixedBill> userFixedBill = new ArrayList<>();
 
         for (FixedBill fixedBill : allFixedBill) {
             if (fixedBillID.equals(fixedBill.getIdFixedBill())) {
