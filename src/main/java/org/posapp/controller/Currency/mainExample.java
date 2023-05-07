@@ -1,4 +1,4 @@
-import org.posapp.controller.currency.DefaultCurrency;
+package org.posapp.controller.currency;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

@@ -1,4 +1,7 @@
+//package org.posapp.controller.currency;
 package org.posapp.controller.currency;
+//import org.posapp.controller.currency.Currency;
+//import org.posapp.controller.currency.DefaultCurrency;
 
 class CurrencyWrapper implements Currency {
     private static CurrencyWrapper instance;

@@ -1,4 +1,4 @@
-//package org.posapp.view.settings;
+package org.posapp.controller.currency;//package org.posapp.view.settings;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.geometry.Pos;
