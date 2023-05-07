@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.posapp.view.History.HistoryView;
 import org.posapp.view.ManajemenBarang.ManajemenBarangView;
 import org.posapp.view.settings.tab_settings;
 
@@ -34,7 +35,7 @@ public class DisplayManager extends Application {
         tabPane = new TabPane();
         root.setCenter(tabPane);
         Tab tab = new Tab("MBV");
-        tab.setContent(new ManajemenBarangView("MBV"));
+        tab.setContent(new HistoryView("MBV"));
         tabPane.getTabs().add(tab);
 
         Scene scene = new Scene(root, 1080, 720);
