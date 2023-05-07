@@ -18,6 +18,8 @@ import javafx.geometry.Side;
 
 
 import java.awt.*;
+import java.util.ArrayList;
+
 
 public class tab_settings extends BorderPane {
     // attributes
@@ -29,16 +31,32 @@ public class tab_settings extends BorderPane {
     private int yBox = 70;
     private int heightBox = 580;
 //    public class TabSettings extends BorderPane {
-
+    private TabPane innerTabPane;
     private VBox leftBox;
 
-        public tab_settings(String nama) {
-            System.out.println("TabSettings" + nama);
-            setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 4px;");
-            createHeaders();
-            createLeftBox();
-            createRightBox();
-        }
+    private Tab pluginTab;
+    private Tab formatFileTab;
+    private Tab storageTab;
+//    private plugin_settings pluginSet;
+//    private format_file formatFileSet;
+//
+//    private storage_dir storageDirSet;
+
+    public tab_settings(String nama) {
+        System.out.println("TabSettings" + nama);
+        setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 4px;");
+        createHeaders();
+        createLeftBox();
+        createRightBox();
+//            addButtonAndTab("contoh", new plugin_settings());
+    }
+
+//    public static tab_settings getInstance() {
+//        if (instance == null) {
+//            instance = new tab_settings();
+//        }
+//        return instance;
+//    }
 
     private void createHeaders() {
         Rectangle rectTitle = new Rectangle();
@@ -65,8 +83,6 @@ public class tab_settings extends BorderPane {
         // set stroke
         leftBox.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 4px;");
 
-
-
         plugin = createButton("Plugin");
         format_file = createButton("Format File");
         storage_dir = createButton("Storage Directory");
@@ -76,18 +92,23 @@ public class tab_settings extends BorderPane {
     }
 
     private void createRightBox() {
-        TabPane innerTabPane = new TabPane();
+            // Tab Pane for the right side
+        innerTabPane = new TabPane();
         innerTabPane.setPrefSize(800, 700);
         innerTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         innerTabPane.setSide(Side.LEFT);
+        // hide the tab header on the left
+//        innerTabPane.setTabMinWidth(0);
+//        innerTabPane.setTabMaxWidth(0);
 
-        Tab pluginTab = new Tab("Plugin");
-        pluginTab.setContent(new plugin_settings());
 
-        Tab formatFileTab = new Tab("Format File");
+        pluginTab = new Tab("Plugin");
+        pluginTab.setContent(new plugin_settings(this));
+
+        formatFileTab = new Tab("Format File");
         formatFileTab.setContent(new format_file());
 
-        Tab storageTab = new Tab("Storage Directory");
+        storageTab = new Tab("Storage Directory");
         storageTab.setContent(new storage_dir());
 
         innerTabPane.getTabs().addAll(pluginTab, formatFileTab, storageTab);
@@ -113,6 +134,31 @@ public class tab_settings extends BorderPane {
         return button;
     }
 
+    private void addButtonAndTab(String text, Object content) {
+        Tab tab = new Tab(text);
+        tab.setContent((Pane) content);
+//        tab.setClosable(false);
+        innerTabPane.getTabs().add(tab);
+        Button button = createButton(text);
+        button.setOnAction(e -> innerTabPane.getSelectionModel().select(tab));
+        // add button to the left box
+        leftBox.getChildren().add(button);
+    }
+
+    // delete button and tab dengan nama parameter
+    public void deleteButtonAndTab(String text) {
+        System.out.println("deleteButtonAndTab" + text);
+        int index = 0;
+        for (int i = 0; i < innerTabPane.getTabs().size(); i++) {
+            System.out.println(innerTabPane.getTabs().get(i).getText());
+            if (innerTabPane.getTabs().get(i).getText().equals(text)) {
+                index = i;
+                break;
+            }
+        }
+        innerTabPane.getTabs().remove(index);
+        leftBox.getChildren().remove(index);
+    }
 
 //    public tab_settings(String nama) {
 //        setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 4px;");
