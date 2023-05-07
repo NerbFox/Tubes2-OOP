@@ -10,11 +10,11 @@ import org.posapp.view.custom_components.FixedSizeTable;
 public class DetailHistoryView extends VBox{
     private FixedSizeTable<Barang> table2;
     public DetailHistoryView(TranHis item) {
-        Label labName =          new Label("Nama\t\t: " + item.getNama());
+        Label labName =          new Label("Nama\t\t\t:    " + item.getNama());
         String stringID = Integer.toString(item.getID());
-        Label labID =            new Label("ID\t\t\t: " + stringID);
-        Label labMembership =    new Label("Membership\t: " + item.getMembership());
-        Label labNoTel =         new Label("No Telepon\t: " + item.getNoTel());
+        Label labID =            new Label("ID\t\t\t\t:    " + stringID);
+        Label labMembership =    new Label("Membership\t\t:    " + item.getMembership());
+        Label labNoTel =         new Label("No Telepon\t\t:    " + item.getNoTel());
 
         setMargin(labName,new Insets(20,0,0,0));
         setMargin(labNoTel,new Insets(0,0,20,0));

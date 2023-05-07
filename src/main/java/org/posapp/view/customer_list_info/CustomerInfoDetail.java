@@ -25,7 +25,6 @@ public class CustomerInfoDetail extends GridPane {
     private TextField phoneTextField;
     private Label pointsLabel;
     private ComboBox<String> membershipComboBox;
-    private Button transactionHistoryButton;
     private Button saveButton;
 
     public CustomerInfoDetail(Consumer<Map<String, String>> saveHandler) {
@@ -107,11 +106,6 @@ public class CustomerInfoDetail extends GridPane {
         add(customerInfoBox, 0, 2);
     }
     private void createLogics(Consumer<Map<String, String>> saveHandler) {
-        // Create the transaction history button
-        transactionHistoryButton = new Button("Transaction History");
-        transactionHistoryButton.setDisable(true);
-        add(transactionHistoryButton, 0, 3);
-
         // Create the change membership status label
         Label changeMembershipStatusLabel = new Label("Change Membership Status");
         changeMembershipStatusLabel.setStyle("-fx-font-size: 17px;");
@@ -122,6 +116,18 @@ public class CustomerInfoDetail extends GridPane {
         // Create the membership status dropdown
         membershipComboBox = new ComboBox<>();
         membershipComboBox.setDisable(true);
+        membershipComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextMembershipStatus(newValue);
+                if (newValue.equals("Non-Member")) {
+                    phoneTextField.setDisable(true);
+                    nameTextField.setDisable(true);
+                } else {
+                    phoneTextField.setDisable(false);
+                    nameTextField.setDisable(false);
+                }
+            }
+        });
         add(membershipComboBox, 0, 5);
 
         // Create the save button
@@ -146,7 +152,6 @@ public class CustomerInfoDetail extends GridPane {
     }
     public void setTextName(String newName) {
         nameTextField.setDisable(false);
-        transactionHistoryButton.setDisable(false);
         saveButton.setDisable(false);
         nameTextField.setText(newName);
     }

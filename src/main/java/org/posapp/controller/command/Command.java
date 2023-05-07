@@ -1,4 +1,4 @@
-package org.posapp.controller;
+package org.posapp.controller.command;
 
 public interface Command {
     void execute();

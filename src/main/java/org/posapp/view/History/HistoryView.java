@@ -42,10 +42,12 @@ public class HistoryView extends Pane {
     ));
 
     List<TranHis> itemstesttable1 = new ArrayList<TranHis>(Arrays.asList(
-            new TranHis(1,"2023-01-1419:55;34", "12123200",1,"Hanan","Member", "082222222",items1),
-            new TranHis(2,"2023-01-14\n19:55;34", "121200",2,"joko","VIP", "082222222",items1),
-            new TranHis(3,"2023-01-14\n19:55;34", "12123200",3,"wi","VIP", "0822222223",items2),
-            new TranHis(4,"2023-01-14\n19:55;34", "121200",4,"yoman","Member", "082222222",items2)
+            new TranHis(1,"2023-01-1419:55;34", "12123200",1,"Hanan","VIP", "082222222",items1),
+            new TranHis(2,"2023-01-1419:55;34", "121200",2,"joko","VIP", "082222222",items1),
+            new TranHis(3,"2023-01-1419:55;34", "12123200",3,"wi","VIP", "0822222223",items2),
+            new TranHis(4,"2023-01-1419:55;34", "121200",4,"yoman","Member", "082222222",items2),
+            new TranHis(5,"2023-01-1419:55;34", "121223200",1,"Hanan","VIP", "082222222",items2),
+            new TranHis(6,"2023-01-1419:55;34", "12112100",1,"Hanan","VIP", "082222222",items1)
     ));
 
     TranHis itemsdefault = new TranHis(4,"2023-01-14\n19:55;34", "121200",4,"yoman","Member", "082222222",items2);
@@ -57,11 +59,10 @@ public class HistoryView extends Pane {
         leftSideLayout = new VBox();
 
         Pane searchIDPane = new Pane();
-        searchID = new FixedSizeSearchBar(340, 20, "Search by ID", ((oldValue, newValue) -> searchHandler(newValue)));
+        searchID = new FixedSizeSearchBar(440, 20, "Search by ID", ((oldValue, newValue) -> searchHandler(newValue)));
         searchID.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>)
                 change -> {
                     String input = change.getText();
-
                     if (input.matches("[0-9]*")){
                         return change;
                     } else {
@@ -72,21 +73,13 @@ public class HistoryView extends Pane {
         searchIDPane.getChildren().add(searchID);
         searchIDPane.setPadding(new Insets(0, 0, 20, 10));
 
-        Pane btnDatePane = new Pane();
-        btnDate = new Button("Choose by Date");
-        btnDate.setMinWidth(340);
-        btnDate.setMaxHeight(20);
-        btnDate.setOnAction(event -> getDate());
-        btnDatePane.getChildren().add(btnDate);
-        btnDatePane.setPadding(new Insets(0, 0, 20, 0));
-
         Label hislab = new Label(("Transaction History"));
         hislab.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 
         String[] headers = new String[] {"BillID", "Date", "TotalBill"};
-        table1 = new FixedSizeTable<TranHis>(470, 440, headers, headers, itemstesttable1.toArray(new TranHis[0]), this::onRowSelect);
+        table1 = new FixedSizeTable<TranHis>(520, 440, headers, headers, itemstesttable1.toArray(new TranHis[0]), this::onRowSelect);
 
-        leftSideLayout.getChildren().addAll(searchIDPane, btnDatePane, hislab, table1);
+        leftSideLayout.getChildren().addAll(searchIDPane, hislab, table1);
         leftSideLayout.setPadding(new Insets(20, 20, 20, 20));
 
         rightSideLayout = new DetailHistoryView(itemsdefault);
@@ -107,10 +100,6 @@ public class HistoryView extends Pane {
             }
         }
         table1.setItems(searchResult);
-    }
-
-    private void getDate(){
-
     }
 
     private void onRowSelect(TranHis selectedItem){
