@@ -1,6 +1,7 @@
 package org.posapp.model;
 
 import lombok.Data;
+import org.posapp.model.datastore.Datastore;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,5 +51,20 @@ public class NonFixedBill implements Serializable {
         if (mapId.containsKey(id)) {
             mapId.remove(id);
         }
+    }
+
+    public HashMap<Barang, Integer> getMapBarang() {
+        HashMap<Barang, Integer> mapBrg = new HashMap<>();
+//        Datastore.getInstance().hardCodeBill();
+        ArrayList<Barang> arrBarang =  Datastore.getInstance().getArrBarang();
+
+        for (Barang barang : arrBarang) {
+            for (Integer key : mapId.keySet()) {
+                if (key.equals(barang.getIdBarang())) {
+                    mapBrg.put(barang, mapId.get(key));
+                }
+            }
+        }
+        return mapBrg;
     }
 }

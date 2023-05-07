@@ -69,6 +69,17 @@ public class CustomerInfoDetail extends GridPane {
         nameLabel.setStyle("-fx-font-size: 22px;");
         nameTextField = new TextField();
         nameTextField.setDisable(true);
+        nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.trim().equals("")) {
+                    saveButton.setDisable(true);
+                }
+                if (!newValue.trim().equals("") && !phoneTextField.getText().trim().equals("")) {
+                    saveButton.setDisable(false);
+                }
+            }
+        });
+
         nameBox.getChildren().addAll(nameLabel, nameTextField);
 
         // Phone label and text field
@@ -87,6 +98,17 @@ public class CustomerInfoDetail extends GridPane {
         };
         TextFormatter<Integer> formatter = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
         phoneTextField.setTextFormatter(formatter);
+        phoneTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.trim().equals("")) {
+                    saveButton.setDisable(true);
+                }
+                if (!newValue.trim().equals("") && !nameTextField.getText().trim().equals("")) {
+                    saveButton.setDisable(false);
+                }
+            }
+        });
+
         phoneBox.getChildren().addAll(phoneLabel, phoneTextField);
 
         // Points label
