@@ -61,12 +61,12 @@ public class Datastore {
     }
 
     private void hardCodeBarang() {
-        Barang b1 = new Barang(1, "Teh botol", "Minuman", 4, 5000, 4000, "path");
-        Barang b2 = new Barang(2, "Pringless", "Makanan", 14, 13000, 10000, "path");
-        Barang b3 = new Barang(3, "Kntl Manis", "Minuman", 9, 8000, 6000, "path");
-        Barang b4 = new Barang(4, "Susu UHT Frisian Flag", "Minuman", 19, 17000, 14000, "path");
-        Barang b5 = new Barang(5, "Regal", "Makanan", 11, 7000, 9000, "path");
-        Barang b6 = new Barang(6, "Silver Queen", "Makanan", 21, 19000, 15000, "path");
+        Barang b1 = new Barang(1, "Teh botol", "Minuman", 4, 5000, 4000, "file:./src/main/resources/image/50.png");
+        Barang b2 = new Barang(2, "Pringless", "Makanan", 14, 13000, 10000, "file:./src/main/resources/image/50.png");
+        Barang b3 = new Barang(3, "Kntl Manis", "Minuman", 9, 8000, 6000, "file:./src/main/resources/image/50.png");
+        Barang b4 = new Barang(4, "Susu UHT Frisian Flag", "Minuman", 19, 17000, 14000, "file:./src/main/resources/image/50.png");
+        Barang b5 = new Barang(5, "Regal", "Makanan", 11, 7000, 9000, "file:./src/main/resources/image/50.png");
+        Barang b6 = new Barang(6, "Silver Queen", "Makanan", 21, 19000, 15000, "file:./src/main/resources/image/50.png");
 
         ArrayList<Barang> barangList = new ArrayList<>(Arrays.asList(b1, b2, b3, b4, b5, b6));
         arrBarang.addAll(barangList);
