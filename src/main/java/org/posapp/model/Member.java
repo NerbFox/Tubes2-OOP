@@ -5,10 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.posapp.model.datastore.Datastore;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Data
-public class Member extends Customer {
+public class Member extends Customer implements Serializable {
+    private static final long serialVersionUID = 1L;
     String name;
     String phone;
     ArrayList<Integer> arrFixedBillId;

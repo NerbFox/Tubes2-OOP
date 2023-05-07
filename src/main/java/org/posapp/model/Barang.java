@@ -6,8 +6,10 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.posapp.controller.currency.CurrencyWrapper;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@XmlRootElement
 @Data
 @AllArgsConstructor
 public class Barang implements Serializable {

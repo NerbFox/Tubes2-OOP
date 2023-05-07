@@ -9,7 +9,7 @@ public class AdapterFactory {
             case "json":
                 return new AdapterJson();
             case "obj":
-                return new AdapterObj();
+                return new AdapterObjFixedBill();
             default:
                 throw new IllegalArgumentException("Unsupported file extension: " + extension);
         }
