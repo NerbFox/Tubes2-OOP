@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import java.io.File;
 import javafx.stage.Stage;
+import org.posapp.model.datastore.Datastore;
 
 public class storage_dir extends Pane {
     private String path;
@@ -63,6 +64,7 @@ public class storage_dir extends Pane {
                 // get base name of directory
                 labelFormat.setText(selectedDirectory.getName());
                 System.out.println(path);
+                Datastore.getInstance().changeDirectory(path);
             }
 
         });

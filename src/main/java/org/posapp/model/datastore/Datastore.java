@@ -93,7 +93,7 @@ public class Datastore {
         }
     }
 
-    private void changeDirectory(String newFolderPath) {
+    public void changeDirectory(String newFolderPath) {
         saveData();
         File fileCustomer = new File(String.format("%s/customer.obj", folderPath));
         File fileBarang = new File(String.format("%s/barang.obj", folderPath));
