@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
 import org.posapp.controller.command.AddBarangCommand;
+import org.posapp.controller.command.Command;
 import org.posapp.controller.manajemen_barang.ManajemenBarangController;
 import org.posapp.model.Barang;
 import org.posapp.view.custom_components.FixedSizeSearchBar;
@@ -45,7 +46,7 @@ public class ManajemenBarangView extends Pane {
         Button addBarangButton = new Button("+");
         addBarangButton.setMinWidth(540);
         addBarangButton.setMaxHeight(20);
-        AddBarangCommand addBarangCommand = new AddBarangCommand(this);
+        Command addBarangCommand = new AddBarangCommand(this);
         addBarangButton.setOnAction(e -> addBarangCommand.execute());
         btnPane.getChildren().add(addBarangButton);
         btnPane.setPadding(new Insets(0, 0, 0, 0));

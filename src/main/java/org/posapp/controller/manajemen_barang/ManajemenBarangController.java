@@ -8,11 +8,6 @@ import org.posapp.model.datastore.Datastore;
 import org.posapp.view.ManajemenBarang.DetailBarangView;
 import org.posapp.view.ManajemenBarang.ManajemenBarangView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 @Getter @Setter
 public class ManajemenBarangController {
     private ManajemenBarangView view;

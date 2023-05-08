@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
+import org.posapp.controller.command.Command;
 import org.posapp.controller.command.DeleteBarangCommand;
 import org.posapp.controller.command.SaveBarangCommand;
 import org.posapp.model.Barang;
@@ -133,11 +134,11 @@ public class DetailBarangView extends VBox{
 
         Button btnSave = new Button("Save");
         btnSave.setStyle("-fx-font-size: 20px; -fx-font-weight: normal;");
-        SaveBarangCommand saveBarangCommand = new SaveBarangCommand(view);
+        Command saveBarangCommand = new SaveBarangCommand(view);
         btnSave.setOnAction(e -> saveBarangCommand.execute());
 
         Button btnDelete = new Button("Delete");
-        DeleteBarangCommand deleteBarangCommand = new DeleteBarangCommand(view);
+        Command deleteBarangCommand = new DeleteBarangCommand(view);
         btnDelete.setOnAction(e -> deleteBarangCommand.execute());
         btnDelete.setStyle("-fx-font-size: 20px; -fx-font-weight: normal;");
 
