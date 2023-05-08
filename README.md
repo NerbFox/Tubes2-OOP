@@ -36,35 +36,31 @@ evaluasi. Program juga bersifat extensible dengan menyediakan dukungan plugin, s
 pengguna dapat menambahkan fungsionalitas program dengan mudah.
 
 
-
-
 ## Technologies Used
-- java 
--
+- Java 1.8_202u 
+- Maven 3.8.1 (untuk build program)
 
 ## Features
 List the ready features here:
-- 
-
-
-## Screenshots
-![Example screenshot](./doc/1.jpg)
-
-
-![Example screenshot](./doc/2.jpg)
+- Menu Kasir
+- Manajemen Barang
+- Detail Pelanggan
+- Settings
+- History transaksi
+- Plugins (Charts, currency, discounts)
 
 
 ## How to Run 
-1. Buka 
 
-## Project Status
-Project is: _not complete_
+Untuk build program, gunakan command berikut.
+```
+mvn clean install
+```
 
-
-## Room for Improvement
-
-Room for improvement:
-- speed up algorithm
+Untuk menjalankan program, execute file jar yang ada pada folder target. Di bawah ini merupakan command yang diexecute dari folder root.
+```
+java -jar target/Tubes2-OOP-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
 
 
 ## Authors
