@@ -11,12 +11,13 @@ import org.posapp.view.ManajemenBarang.ManajemenBarangView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Getter @Setter
 public class ManajemenBarangController {
     private ManajemenBarangView view;
     private Datastore model;
-    static Integer greatestID;
+    public static Integer greatestID;
 
     public ManajemenBarangController(ManajemenBarangView _view) {
         view = _view;
@@ -24,7 +25,7 @@ public class ManajemenBarangController {
     }
 
     public void addBarang(){
-        view.setRightSideLayout(new DetailBarangView(new Barang(-1, "", "", 0, (float) 0, (float) 0, ""), view));
+        view.setRightSideLayout(new DetailBarangView (new Barang(-1, "", "", 0, (float) 0, (float) 0, "file:./src/main/resources/image/50.png"), view));
         view.getLayout().getChildren().set(1, view.getRightSideLayout());
         //        view.getLayout().getChildren().set(1, new DetailBarangView(new Barang(-1, "", "", 0, 0, 0, ""), view));
     }
@@ -35,24 +36,36 @@ public class ManajemenBarangController {
 
         }
         else {
-            item.setIdBarang(model.getArrBarang().size() + 1);
+            greatestID++;
+            item.setIdBarang(greatestID);
         }
         item.setNama(nama);
         item.setKategori(kategori);
         try {
             item.setStok(Integer.parseInt(stok));
-            item.setHargaJual(Float.parseFloat(hargaJual));
-            item.setHargaBeli(Float.parseFloat(hargaBeli));
+            item.setHargaJual(org.posapp.controller.currency.CurrencyWrapper.getInstance().getConvertedCurrencyBack(Float.parseFloat(hargaJual)));
+            item.setHargaBeli(org.posapp.controller.currency.CurrencyWrapper.getInstance().getConvertedCurrencyBack(Float.parseFloat(hargaBeli)));
             item.setPathGambar(pathGambar);
             model.getArrBarang().add(item);
             view.getTable().setItems(FXCollections.observableArrayList(model.getArrBarang()));
         } catch (Exception err) {
             throw new InvalidInputException("Format Input Harga Jual atau Harga Beli Tidak Valid.");
         }
+        System.out.println("ID Barang : " + item.getIdBarang());
     }
 
     public void deleteBarang(Barang item){
         model.getArrBarang().remove(item);
         view.getTable().setItems(FXCollections.observableArrayList(model.getArrBarang()));
+    }
+
+    public static Integer getGreatIDFormDS(){
+        int id = 0;
+        for (Barang barang : Datastore.getInstance().getArrBarang()){
+            if (id < barang.getIdBarang()){
+                id = barang.getIdBarang();
+            }
+        }
+        return id;
     }
 }
