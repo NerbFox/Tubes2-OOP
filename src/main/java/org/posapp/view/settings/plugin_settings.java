@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 // tuple
 import javafx.util.Pair;
+import org.posapp.controller.currency.CurrencyWrapper;
 
 
 import java.io.File;
@@ -39,7 +40,10 @@ public class plugin_settings extends Pane {
     private int weight;
     private  int x;
     private tab_settings parent;
+    private CurrencyWrapper currencyWrapper;
     public plugin_settings(tab_settings parent) {
+        // initialize singleton currencyWrapper
+        this.currencyWrapper = CurrencyWrapper.getInstance();
         this.classLoaders = new ArrayList<>();
         this.parent = parent;
         // stroke border
@@ -147,6 +151,8 @@ public class plugin_settings extends Pane {
                                     System.out.println(classLoader.getValue());
                                     if (classLoader.getValue().equals("PluginCurrency.jar")) {
                                         parent.deleteButtonAndTab("Currency Settings");
+                                        this.currencyWrapper.setCode("IDR");
+                                        this.currencyWrapper.setRate(1.0f);
                                     }
 //                                    if (classLoader.getValue().equals(selectedFile.getAbsolutePath())) {
 //                                        // jika plugin yg diload PluginCurrency, delete tab currency settings
@@ -202,12 +208,21 @@ public class plugin_settings extends Pane {
                             //mainMethod.invoke(null, new Object[]{new String[]{}});
                             Method mainMethod = null;
                             // invoke method"RunPlugin(BorderPane borderPane)"
-                            mainMethod = pluginClass.getMethod("RunPlugin", Object.class);
-                            mainMethod.invoke(null, parent);
+//                            mainMethod = pluginClass.getMethod("RunPlugin", Object.class, CurrencyWrapper.class);
+//                            mainMethod.invoke(null, parent, currencyWrapper);
+                            Method[] methods = pluginClass.getDeclaredMethods();
+                            for (Method m: methods) {
+                                if(m.getName().equals("RunPlugin")){
+                                    System.out.println("RunPlugin");
+                                    System.out.println(m);
+                                    m.setAccessible(true);
+                                    m.invoke(null, parent);
+                                }
+                            }
                             classLoaders.add(new Pair<>(classLoader, labelText));
                             System.out.println("classLoaders");
                             System.out.println(classLoaders);
-                        } catch (MalformedURLException | NoSuchMethodException | ClassNotFoundException |
+                        } catch (MalformedURLException | ClassNotFoundException |
                                  IllegalAccessException | InvocationTargetException e) {
                             throw new RuntimeException(e);
                         }

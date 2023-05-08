@@ -13,13 +13,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 //import org.posapp.view.settings.FormatCurrency;
 
+// javac *.java
+
 public class PluginCurrency {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }
         // change rate
     public static void RunPlugin(Object borderPane) {
-        System.out.println("Hello world!, sudah bisa nih?? apakah bisa dijalankan? ini emang bisa... ");
+        System.out.println("Hello world!, sudah bisa");
 //        while(true){
 //        }
         // reflection, find classes
@@ -36,7 +38,11 @@ public class PluginCurrency {
                     System.out.println("addButtonAndTab");
                     method.setAccessible(true);
                     // invoke the method
-                    method.invoke(borderPane, "Currency Settings", new FormatCurrency());
+//                    try {
+                        method.invoke(borderPane, "Currency Settings", new FormatCurrency());
+//                    } catch (IllegalAccessException | NoSuchMethodException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
