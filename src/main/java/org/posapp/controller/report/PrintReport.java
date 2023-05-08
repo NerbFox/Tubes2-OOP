@@ -26,6 +26,12 @@ public class PrintReport implements Runnable {
                 new Barang(1, "Hentai", "Komik", 3, 33000F, 30000F, "url"),
                 new Barang(2, "JAV", "DvD", 3, 200000F, 145000F, "url"),
                 new Barang(3, "Doujin", "Komik", 3, 13000F, 11321F, "url"),
+                new Barang(1, "Hentai", "Komik", 3, 33000F, 30000F, "url"),
+                new Barang(2, "JAV", "DvD", 3, 200000F, 145000F, "url"),
+                new Barang(3, "Doujin", "Komik", 3, 13000F, 11321F, "url"),
+                new Barang(1, "Hentai", "Komik", 3, 33000F, 30000F, "url"),
+                new Barang(2, "JAV", "DvD", 3, 200000F, 145000F, "url"),
+                new Barang(3, "Doujin", "Komik", 3, 13000F, 11321F, "url"),
         };
 
         HashMap<Barang, Integer> dataBill = new HashMap<>();
@@ -34,7 +40,7 @@ public class PrintReport implements Runnable {
         dataBill.put(data[2], 4);
 
         FixedBill bill = new FixedBill(dataBill, 10);
-        ArrayList<FixedBill> _data = new ArrayList<>(Arrays.asList(bill, bill, bill));
+        ArrayList<FixedBill> _data = new ArrayList<>(Arrays.asList(bill, bill, bill, bill, bill, bill));
 
         Datastore.getInstance().setArrFixedBill(_data);
 

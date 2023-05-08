@@ -23,7 +23,7 @@ public class DisplayManager extends Application {
     private ToolBar toolbar;
     private TabPane tabPane;
 
-    private final List<String> unduplicableTab = Arrays.asList("Tab1", "Tab4");
+    private final List<String> unduplicableTab = Arrays.asList("Kasir");
 
     @Override
     public void start(Stage primaryStage) {
@@ -37,8 +37,8 @@ public class DisplayManager extends Application {
         // TabPane
         tabPane = new TabPane();
         root.setCenter(tabPane);
-        Tab tab = new Tab("MBV");
-        tab.setContent(new LiveClock("MBV"));
+        Tab tab = new Tab("Main");
+        tab.setContent(new LiveClock("Main"));
         tab.setClosable(false);
         tabPane.getTabs().add(tab);
 
@@ -53,34 +53,35 @@ public class DisplayManager extends Application {
 
     private ToolBar toolBar() {
         ToolBar toolbar = new ToolBar();
+        // Kasir, MAnajemenBarang, History, Detail Customer, Setting,
 
         // unduplicable
-        Button btn1 = new Button("Tab1");
-        btn1.setOnAction(new AddTabHandler("Tab1"));
+        Button btn1 = new Button("Kasir");
+        btn1.setOnAction(new AddTabHandler("Kasir"));
 
         // duplicable
-        Button btn2 = new Button("Tab2");
-        btn2.setOnAction(new AddTabHandler("Tab2"));
+        Button btn2 = new Button("Barang");
+        btn2.setOnAction(new AddTabHandler("Barang"));
 
         // dropdownbutton
         SplitMenuButton dropDownBtn = new SplitMenuButton();
-        dropDownBtn.setText("Menu");
+        dropDownBtn.setText("Additional");
 
-        MenuItem btn3 = new MenuItem("Tab3");
-        btn3.setOnAction(new AddTabHandler("Tab3"));
+        MenuItem btn3 = new MenuItem("Setting");
+        btn3.setOnAction(new AddTabHandler("Setting"));
 
-        MenuItem btn4 = new MenuItem("Tab4");
-        btn4.setOnAction(new AddTabHandler("Tab4"));
+        MenuItem btn4 = new MenuItem("Customer");
+        btn4.setOnAction(new AddTabHandler("Customer"));
 
-        MenuItem btn5 = new MenuItem("Tab5");
-        btn5.setOnAction(new AddTabHandler("Tab5"));
+        MenuItem btn5 = new MenuItem("History");
+        btn5.setOnAction(new AddTabHandler("History"));
+//
+//        MenuItem btn6 = new MenuItem("Tab6");
+//        btn6.setOnAction(new AddTabHandler("Tab6"));
 
-        MenuItem btn6 = new MenuItem("Tab6");
-        btn6.setOnAction(new AddTabHandler("Tab6"));
+        dropDownBtn.getItems().addAll(btn4, btn5, btn3);
 
-        dropDownBtn.getItems().addAll(btn3, btn4, btn5, btn6);
-
-        toolbar.getItems().addAll(btn1, btn2, dropDownBtn);
+        toolbar.getItems().addAll(dropDownBtn, btn1, btn2);
 
         return toolbar;
     }
@@ -113,12 +114,12 @@ public class DisplayManager extends Application {
 //                    case "Tab4" -> newTab.setContent(new TabContent(nama));
 //                    default -> newTab.setContent(new TabContent(nama));
 //                }
-                if (nama.equals("Tab1")) newTab.setContent(new tab_settings(nama));
-                else if (nama.equals("Tab2")) newTab.setContent(new CashierMenu());
-                else if (nama.equals("Tab3")) newTab.setContent(new ManajemenBarangView(nama));
-                else if (nama.equals("Tab4")) newTab.setContent(new TabContent(nama));
-                else if (nama.equals("Tab5")) newTab.setContent(new HistoryView(nama));
-                else if (nama.equals("Tab6")) newTab.setContent(new CustomerListInfoView());
+                if (nama.equals("Setting")) newTab.setContent(new tab_settings(nama));
+                else if (nama.equals("Kasir")) newTab.setContent(new CashierMenu());
+                else if (nama.equals("Barang")) newTab.setContent(new ManajemenBarangView(nama));
+//                else if (nama.equals("Tab4")) newTab.setContent(new TabContent(nama));
+                else if (nama.equals("History")) newTab.setContent(new HistoryView(nama));
+                else if (nama.equals("Customer")) newTab.setContent(new CustomerListInfoView());
 
                 tabPane.getTabs().add(newTab);
                 tabPane.getSelectionModel().select(newTab);
