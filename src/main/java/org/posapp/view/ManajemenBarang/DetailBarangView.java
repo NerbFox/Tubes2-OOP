@@ -38,13 +38,14 @@ public class DetailBarangView extends VBox{
     public DetailBarangView(Barang _item, ManajemenBarangView view) {
 //        Image image = new Image("https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?resize=476%2C280&ssl=1", 150, 150, true, true);
         item = _item;
-        if (_item.getPathGambar().equals("url")) {
-            selectedFile = "./src/main/resources/image/logo_itb.png";
-        } else {
-            selectedFile = _item.getPathGambar();
-//            System.out.println(selectedFile);
-        }
-        Image image = new Image("file:" + selectedFile, 150, 150, true, true);
+//        if (_item.getPathGambar().equals("url")) {
+//            selectedFile = "./src/main/resources/image/logo_itb.png";
+//        } else {
+//            selectedFile = _item.getPathGambar();
+////            System.out.println(selectedFile);
+//        }
+        selectedFile = _item.getPathGambar();
+        Image image = new Image(selectedFile, 150, 150, true, true);
         ImageView imageView = new ImageView((image));
         setMargin(imageView, new Insets(20, 0, 0 ,100));
 
@@ -112,12 +113,12 @@ public class DetailBarangView extends VBox{
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Pilih Gambar Barang");
             fileChooser.getExtensionFilters().add(
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
             selectedFile = fileChooser.showOpenDialog(stage).toURI().toString();
             if (selectedFile != null) {
-                selectedFile = selectedFile.substring(5);
+//                selectedFile = selectedFile.substring(5);
 //                System.out.println(selectedFile);
-                imageView.setImage(new Image("file:" + selectedFile, 150, 150, true, true));
+                imageView.setImage(new Image(selectedFile, 150, 150, true, true));
                 pathLabel.setText(selectedFile);
             }
         });

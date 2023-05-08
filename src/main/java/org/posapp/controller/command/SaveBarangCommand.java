@@ -20,8 +20,8 @@ public class SaveBarangCommand implements Command {
                     temp.getNamaField().getText(),
                     temp.getKatField().getText(),
                     temp.getStokField().getText(),
-                    temp.getBeliField().getText(),
                     temp.getJualField().getText(),
+                    temp.getBeliField().getText(),
                     temp.getSelectedFile()
             );
         } catch (InvalidInputException err) {

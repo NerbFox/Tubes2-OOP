@@ -25,6 +25,7 @@ public class ManajemenBarangView extends Pane {
     HBox layout;
 
     public ManajemenBarangView(String nama) {
+        ManajemenBarangController.greatestID = ManajemenBarangController.getGreatIDFormDS();
         controller = new ManajemenBarangController(this);
 
         layout = new HBox();
@@ -52,7 +53,7 @@ public class ManajemenBarangView extends Pane {
         leftSideLayout.getChildren().addAll(searchPane, table, btnPane);
         leftSideLayout.setPadding(new Insets(20, 20, 20, 20));
 
-        rightSideLayout = new DetailBarangView (new Barang(-1, "", "", 0, (float) 0, (float) 0, "url"), this);
+        rightSideLayout = new DetailBarangView (new Barang(-1, "", "", 0, (float) 0, (float) 0, "file:./src/main/resources/image/50.png"), this);
 
         layout.getChildren().addAll(leftSideLayout, rightSideLayout);
         this.getChildren().add(layout);
