@@ -54,10 +54,27 @@ public class Datastore {
         Customer cust2 = new Member(2, nonFix1, "Bob", "0812241231", new ArrayList<Integer>(Arrays.asList(1,2,3)), 2000F, false, false);
         Customer cust3 = new Member(3, nonFix2,"Charlie", "089623734", new ArrayList<Integer>(Arrays.asList(4,5,6)), 3000F, false, true);
         Customer cust4 = new Member(4, nonFix1, "Dodo", "082136237", new ArrayList<Integer>(Arrays.asList(7,8,9)), 4000F, true, true);
-        arrCustomer.add(cust1);
-        arrCustomer.add(cust2);
-        arrCustomer.add(cust3);
-        arrCustomer.add(cust4);
+
+        ArrayList<Customer> temp = new ArrayList<>();
+        temp.add(cust1);
+        temp.add(cust2);
+        temp.add(cust3);
+        temp.add(cust4);
+
+        // Initialize data file (obj)
+        AdapterData newAdapter = AdapterFactory.createAdapter("./src/main/resources/datastore/customer.obj");
+        File fileObj = new File("./src/main/resources/datastore/customer.obj");
+        try {
+            newAdapter.write(temp, fileObj);
+            arrCustomer = newAdapter.read(fileObj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        arrCustomer.add(cust1);
+//        arrCustomer.add(cust2);
+//        arrCustomer.add(cust3);
+//        arrCustomer.add(cust4);
     }
 
     private void hardCodeBarang() {
@@ -68,8 +85,18 @@ public class Datastore {
         Barang b5 = new Barang(5, "Regal", "Makanan", 11, 7000F, 9000F, "file:./src/main/resources/image/50.png");
         Barang b6 = new Barang(6, "Silver Queen", "Makanan", 21, 19000F, 15000F, "file:./src/main/resources/image/50.png");
 
+
         ArrayList<Barang> barangList = new ArrayList<>(Arrays.asList(b1, b2, b3, b4, b5, b6));
-        arrBarang.addAll(barangList);
+//        arrBarang.addAll(barangList);
+        // Initialize data file (obj)
+        AdapterData newAdapter = AdapterFactory.createAdapter("./src/main/resources/datastore/barang.obj");
+        File fileObj = new File("./src/main/resources/datastore/barang.obj");
+        try {
+            newAdapter.write(barangList, fileObj);
+            arrBarang = newAdapter.read(fileObj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public void hardCodeBill() {
         NonFixedBill nonFix1 = new NonFixedBill();
@@ -103,8 +130,17 @@ public class Datastore {
         FixedBill f10 = new FixedBill(nonFix1.getMapBarang(), 10);
 
         ArrayList<FixedBill> FixedBillList = new ArrayList<>(Arrays.asList(f1, f2, f3, f4, f5, f6, f7, f8, f9, f10));
-        arrFixedBill = new ArrayList<>();
-        arrFixedBill.addAll(FixedBillList );
+
+        AdapterData newAdapter = AdapterFactory.createAdapter("./src/main/resources/datastore/fixedbill.obj");
+        File fileObj = new File("./src/main/resources/datastore/fixedbill.obj");
+        try {
+            newAdapter.write(FixedBillList, fileObj);
+            arrFixedBill = newAdapter.read(fileObj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        arrFixedBill = new ArrayList<>();
+//        arrFixedBill.addAll(FixedBillList );
     }
 }
 

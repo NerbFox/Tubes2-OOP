@@ -37,8 +37,11 @@ public class AdapterObjCustomer implements AdapterData<Customer> {
 //
 //        AdapterObjCustomer adapterObj = new AdapterObjCustomer();
 //        NonMember n1 = new NonMember(1, 2);
-//        Member n2 = new Member(3, "namatest", "0821", new ArrayList<Integer>(), 500, false, false);
-//        Member n3 = new Member(4, "namatestvip", "0821", new ArrayList<Integer>(), 600, false, true);
+//        HashMap<Integer, Integer> hash1 = new HashMap<>();
+//        hash1.put(1,2);
+//        hash1.put(2,3);
+//        Member n2 = new Member(3,new NonFixedBill(hash1), "namatest", "0821", new ArrayList<Integer>(), (float)500, false, false);
+//        Member n3 = new Member(4,new NonFixedBill(hash1), "namatestvip", "0821", new ArrayList<Integer>(), (float)600, false, true);
 //        ArrayList<Customer> listOfTest = new ArrayList<>();
 //        listOfTest.add(n1);
 //        listOfTest.add(n2);
@@ -49,6 +52,8 @@ public class AdapterObjCustomer implements AdapterData<Customer> {
 //            adapterObj.write(listOfTest, objFile);
 //            // Read data from OBJ file
 //            ArrayList<Customer> listRead = adapterObj.read(objFile);
+////            System.out.println(listRead);
+////            System.out.println(listRead.get(1).getCurrentBill().getMapBarang());
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }

@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import org.posapp.model.Barang;
 import org.posapp.model.FixedBill;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.File;
@@ -19,41 +18,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-public class AdapterJson implements AdapterData<FixedBill> {
+public class AdapterJsonFixedBill implements AdapterData<FixedBill> {
     private final Gson gson;
 
-    public AdapterJson() {
+    public AdapterJsonFixedBill() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(ArrayList.class, new FixedBillListTypeAdapter());
 //        gsonBuilder.registerTypeAdapter(HashMap.class, new HashMapTypeAdapter());
         gsonBuilder.setPrettyPrinting();
         this.gson = gsonBuilder.create();
     }
+
     @Override
     public ArrayList<FixedBill> read(File file) throws Exception {
 //        Gson gson = new Gson();
         FileReader reader = new FileReader(file);
-        Type type = new TypeToken<ArrayList<FixedBill>>() {}.getType();
+        Type type = new TypeToken<ArrayList<FixedBill>>() {
+        }.getType();
         ArrayList<FixedBill> list = gson.fromJson(reader, type);
         reader.close();
-//        try (Reader reader = new FileReader("data.json")) {
-//            JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
-//            Type type = new TypeToken<ArrayList<FixedBill>>() {}.getType();
-//            ArrayList<FixedBill> fixedBills = gson.fromJson(jsonArray, type);
-//            for (FixedBill fixedBill : fixedBills) {
-//                System.out.println("idFixedBill: " + fixedBill.getIdFixedBill());
-//                HashMap<Barang, Integer> mapBarang = fixedBill.getMapBarang();
-//                for (Barang barang : mapBarang.keySet()) {
-//                    System.out.println("Barang: " + barang.getNama() + ", Quantity: " + mapBarang.get(barang));
-//                }
-//                System.out.println();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         return list;
     }
-
     @Override
     public void write(ArrayList<FixedBill> list, File file) throws Exception {
 //        Gson gson = new Gson();
@@ -288,9 +273,9 @@ public class AdapterJson implements AdapterData<FixedBill> {
 
 //    public static void main(String[] args){
 //
-//        AdapterJson adapterJson = new AdapterJson();
-//        Barang barang1 = new Barang(1, "test", "testkategori", 3, 300.1, 300, "path");
-//        Barang barang2 = new Barang(2, "testtest", "testkategori2222", 6, 600, 800, "path22");
+//        AdapterJsonFixedBill adapterJson = new AdapterJsonFixedBill();
+//        Barang barang1 = new Barang(1, "test", "testkategori", 3, 300.1, 300.3, "path");
+//        Barang barang2 = new Barang(2, "testtest", "testkategori2222", 6, 600.2, 800.4, "path22");
 //        HashMap<Barang, Integer> hash1 = new HashMap<>();
 //        HashMap<Barang, Integer> hash2 = new HashMap<>();
 //        hash1.put(barang1, 1000);
