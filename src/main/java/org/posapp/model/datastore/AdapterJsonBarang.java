@@ -46,29 +46,29 @@ public class AdapterJsonBarang implements AdapterData<Barang> {
         writer.close();
     }
 
-        public static void main(String[] args){
-
-        AdapterJsonBarang adapterJson = new AdapterJsonBarang();
-        Barang barang1 = new Barang(1, "test", "testkategori", 3, (float)300.1, (float)300.3, "path");
-        Barang barang2 = new Barang(2, "testtest", "testkategori2222", 6, (float)600.2, (float)800.4, "path22");
-//        HashMap<Barang, Integer> hash1 = new HashMap<>();
-//        HashMap<Barang, Integer> hash2 = new HashMap<>();
-//        hash1.put(barang1, 1000);
-//        hash1.put(barang2, 2000);
-//        hash2.put(barang2, 3000);
-//        hash2.put(barang1, 4000);
-
-//        FixedBill test1 = new FixedBill(hash1, 1);
-//        FixedBill test2 = new FixedBill(hash2, 2);
-        ArrayList<Barang> listOfTest = new ArrayList<>();
-        listOfTest.add(barang1);
-        listOfTest.add(barang2);
-        try {
-            adapterJson.write(listOfTest, new File("./src/main/resources/datastore/test.json"));
-            ArrayList<Barang> listRead = adapterJson.read(new File("./src/main/resources/datastore/test.json"));
-            System.out.println("gg sekali");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//        public static void main(String[] args){
+//
+//        AdapterJsonBarang adapterJson = new AdapterJsonBarang();
+//        Barang barang1 = new Barang(1, "test", "testkategori", 3, (float)300.1, (float)300.3, "path");
+//        Barang barang2 = new Barang(2, "testtest", "testkategori2222", 6, (float)600.2, (float)800.4, "path22");
+////        HashMap<Barang, Integer> hash1 = new HashMap<>();
+////        HashMap<Barang, Integer> hash2 = new HashMap<>();
+////        hash1.put(barang1, 1000);
+////        hash1.put(barang2, 2000);
+////        hash2.put(barang2, 3000);
+////        hash2.put(barang1, 4000);
+//
+////        FixedBill test1 = new FixedBill(hash1, 1);
+////        FixedBill test2 = new FixedBill(hash2, 2);
+//        ArrayList<Barang> listOfTest = new ArrayList<>();
+//        listOfTest.add(barang1);
+//        listOfTest.add(barang2);
+//        try {
+//            adapterJson.write(listOfTest, new File("./src/main/resources/datastore/test.json"));
+//            ArrayList<Barang> listRead = adapterJson.read(new File("./src/main/resources/datastore/test.json"));
+//            System.out.println("gg sekali");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
