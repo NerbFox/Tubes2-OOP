@@ -1,0 +1,56 @@
+[
+  {
+    "idBarang": 1,
+    "nama": "Teh botol",
+    "kategori": "Minuman",
+    "stok": 4,
+    "hargaJual": 5000.0,
+    "hargaBeli": 4000.0,
+    "pathGambar": "file:./src/main/resources/image/50.png"
+  },
+  {
+    "idBarang": 2,
+    "nama": "Pringless",
+    "kategori": "Makanan",
+    "stok": 14,
+    "hargaJual": 13000.0,
+    "hargaBeli": 10000.0,
+    "pathGambar": "file:./src/main/resources/image/50.png"
+  },
+  {
+    "idBarang": 3,
+    "nama": "Kntl Manis",
+    "kategori": "Minuman",
+    "stok": 9,
+    "hargaJual": 8000.0,
+    "hargaBeli": 6000.0,
+    "pathGambar": "file:./src/main/resources/image/50.png"
+  },
+  {
+    "idBarang": 4,
+    "nama": "Susu UHT Frisian Flag",
+    "kategori": "Minuman",
+    "stok": 19,
+    "hargaJual": 17000.0,
+    "hargaBeli": 14000.0,
+    "pathGambar": "file:./src/main/resources/image/50.png"
+  },
+  {
+    "idBarang": 5,
+    "nama": "Regal",
+    "kategori": "Makanan",
+    "stok": 11,
+    "hargaJual": 7000.0,
+    "hargaBeli": 9000.0,
+    "pathGambar": "file:./src/main/resources/image/50.png"
+  },
+  {
+    "idBarang": 6,
+    "nama": "Silver Queen",
+    "kategori": "Makanan",
+    "stok": 21,
+    "hargaJual": 19000.0,
+    "hargaBeli": 15000.0,
+    "pathGambar": "file:./src/main/resources/image/50.png"
+  }
+]

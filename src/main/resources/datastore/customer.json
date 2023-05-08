@@ -1,0 +1,65 @@
+[
+  {
+    "fixedBillID": 10,
+    "idCust": 1,
+    "currentBill": {
+      "mapId": {}
+    }
+  },
+  {
+    "name": "Bob",
+    "phone": "0812241231",
+    "arrFixedBillId": [
+      1,
+      2,
+      3
+    ],
+    "poin": 2000.0,
+    "frozen": false,
+    "vipStatus": false,
+    "idCust": 2,
+    "currentBill": {
+      "mapId": {
+        "1": 2,
+        "2": 4,
+        "3": 2
+      }
+    }
+  },
+  {
+    "name": "Charlie",
+    "phone": "089623734",
+    "arrFixedBillId": [
+      4,
+      5,
+      6
+    ],
+    "poin": 3000.0,
+    "frozen": false,
+    "vipStatus": true,
+    "idCust": 3,
+    "currentBill": {
+      "mapId": {}
+    }
+  },
+  {
+    "name": "Dodo",
+    "phone": "082136237",
+    "arrFixedBillId": [
+      7,
+      8,
+      9
+    ],
+    "poin": 4000.0,
+    "frozen": true,
+    "vipStatus": true,
+    "idCust": 4,
+    "currentBill": {
+      "mapId": {
+        "1": 2,
+        "2": 4,
+        "3": 2
+      }
+    }
+  }
+]

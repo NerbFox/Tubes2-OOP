@@ -28,7 +28,7 @@ public class NonMember extends Customer implements Serializable {
     }
 
     public FixedBill getFixedBill() {
-        Datastore.getInstance().hardCodeBill();
+//        Datastore.getInstance().hardCodeBill();
         ArrayList<FixedBill> allFixedBill = Datastore.getInstance().getArrFixedBill();
 
         for (FixedBill fixedBill : allFixedBill) {

@@ -1,6 +1,5 @@
 package org.posapp.model.datastore;
 
-import org.posapp.model.Barang;
 import org.posapp.model.FixedBill;
 
 import javax.xml.bind.JAXBContext;
@@ -8,10 +7,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
-public class AdapterXml implements AdapterData<FixedBill> {
+public class AdapterXmlFixedBill implements AdapterData<FixedBill> {
     @Override
     public ArrayList<FixedBill> read(File file) throws Exception {
         JAXBContext jaxbContext = JAXBContext.newInstance(ObjectList.class);
@@ -32,7 +30,7 @@ public class AdapterXml implements AdapterData<FixedBill> {
 
 //    public static void main(String[] args){
 //
-//        AdapterXml adapterXml = new AdapterXml();
+//        AdapterXmlFixedBill adapterXml = new AdapterXmlFixedBill();
 //
 //        Barang barang1 = new Barang(1, "test", "testkategori", 3, 300, 300, "path");
 //        Barang barang2 = new Barang(2, "testtest", "testkategori2222", 6, 600, 800, "path22");
