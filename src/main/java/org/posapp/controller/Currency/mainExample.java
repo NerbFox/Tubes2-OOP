@@ -84,7 +84,7 @@ public class mainExample {
 //        System.out.println("amount = " + amount);
 //        System.out.println("amount after convert = " + CurrencyWrapper.getInstance().getConvertedCurrency(amount));
         m.printExample();
-        m.setPluginCurrency(new USDCurrency());
+        m.setPluginCurrency(new DefaultCurrency());
         m.printExample();
 //        while (true) {
 //            try {
