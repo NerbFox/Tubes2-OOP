@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import org.posapp.view.TabContent;
 import javafx.geometry.Side;
 
 
