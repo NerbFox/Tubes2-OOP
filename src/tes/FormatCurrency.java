@@ -9,13 +9,22 @@ import java.lang.reflect.*;
 import java.lang.reflect.Method;
 
 public class FormatCurrency extends Pane {
+//    private Object fCW;
+    private Float Rate;
+    private String Code;
     private Object Object_CW;
     private Class<?> CW;
     private Method methods[];
     private Field fields[];
-    public FormatCurrency() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        this.Object_CW = null;
-        this.CW = Class.forName("org.posapp.controller.currency.CurrencyWrapper");
+    public FormatCurrency()  {
+//        this.fCW = Ob;
+//        this.Object_CW = null;
+        try {
+            this.CW = Class.forName("org.posapp.controller.currency.CurrencyWrapper");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+//        this.CW = Class.forName("org.posapp.controller.currency.CurrencyWrapper");
         this.methods = this.CW.getDeclaredMethods();
         this.fields = this.CW.getDeclaredFields();
         setUp();
@@ -57,12 +66,20 @@ public class FormatCurrency extends Pane {
         // event handler
         idr.setOnAction(event -> {
             labelFormat.setText("IDR");
-
+            try {
+                this.Rate = 1.0f;
+                this.Code = "IDR";
+                this.setPluginCurrency();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         });
         usd.setOnAction(event -> {
             labelFormat.setText("USD");
             try {
-                this.setPluginCurrency(new USDCurrency());
+                this.Rate = 0.000068f;
+                this.Code = "USD";
+                this.setPluginCurrency();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -70,7 +87,9 @@ public class FormatCurrency extends Pane {
         yen.setOnAction(event -> {
             labelFormat.setText("JPY");
             try {
-                this.setPluginCurrency(new JPYCurrency());
+                this.Rate = 0.0093f;
+                this.Code = "JPY";
+                this.setPluginCurrency();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -78,7 +97,9 @@ public class FormatCurrency extends Pane {
         krw.setOnAction(event -> {
             labelFormat.setText("KRW");
             try {
-            this.setPluginCurrency(new KRWCurrency());
+                this.Rate = 0.090f;
+                this.Code = "KRW";
+                this.setPluginCurrency();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -138,23 +159,72 @@ public class FormatCurrency extends Pane {
             throw new RuntimeException(e);
         }
     }
-    private void setPluginCurrency(Object PluginCurrency) throws IllegalAccessException {
-        printExample();
-        // find attribute Currency
-        for (Field field : fields) {
-            System.out.println("field.getName() = " + field.getName());
-            if (field.getName().equals("currency")) {
-                System.out.println("Currency");
-                field.setAccessible(true);
+    private void setPluginCurrency() throws IllegalAccessException {
+//        printExample();
+        Float amount = 5000.0F;
+        System.out.println("jjjj");
+//        System.out.println("convertCurrency" + PluginCurrency.getConvertedCurrency(amount).toString());
+//        System.out.println("convertCurrency" + this.fCW.getConvertedCurrency(amount).toString());
+        try {
+            Class<?> c = Class.forName("org.posapp.controller.currency.CurrencyWrapper");
+//            Constructor<?> constructor = c.getConstructor(String.class);
+//            Object o = constructor.newInstance("contoh");
+
+//            Class<?> c2 = Class.forName("org.posapp.view.settings.format_file");
+            // find method addButtonAndTab("contoh", new plugin_settings());
+            Method[] methods = c.getDeclaredMethods();
+            for (Method method : methods) {
+                if (method.getName().equals("setRate")) {
+                    System.out.println("setRateCurrency...................");
+                    method.setAccessible(true);
+                    // invoke the method
+//                    try {
+                    method.invoke(this.Object_CW, this.Rate);
+//                    } catch (IllegalAccessException | NoSuchMethodException e) {
+//                        e.printStackTrace();
+//                    }
+                }
+                else if(method.getName().equals("setCode")) {
+                    System.out.println("setCodeCurrency...................");
+                    method.setAccessible(true);
+                    // invoke the method
+                    method.invoke(this.Object_CW, this.Code);
+                }
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+//        System.out.println(PluginCurrency.getConvertedCurrency(amount));
+        // setRate method
+//        for (Method method1 : methods) {
+//            if (method1.getName().equals("setRate")) {
+//                System.out.println("setRate");
+//                method1.setAccessible(true);
+//                // invoke the method
 //                try {
-//                    field.set(this.Object_CW, PluginCurrency);
-//                } catch (IllegalAccessException e) {
+//                    method1.invoke(this.fCW, PluginCurrency);
+//                } catch (InvocationTargetException e) {
 //                    e.printStackTrace();
 //                }
-                field.set(this.Object_CW, PluginCurrency);
-            }
-            printExample();
-        }
+//            }
+//        }
+//        System.out.println(this.fCW.getConvertedCurrency(amount));
+//        this.Object_CW
+//        for (Method method1 : methods) {
+//            if (method1.getName().equals("setCurrency")) {
+//                System.out.println("setCurrency");
+//                method1.setAccessible(true);
+//                // invoke the method
+//                try {
+//                    method1.invoke(this.Object_CW, PluginCurrency);
+//                } catch (InvocationTargetException e) {
+//                    e.printStackTrace();
+//                }
+////                method1.invoke(this.fCW, PluginCurrency);
+//            }
+//        }
+        System.out.println("bisaaaaaaaaaaaa");
+//        printExample();
     }
 
 //    public addCurrendy(){}

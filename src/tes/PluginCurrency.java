@@ -45,7 +45,7 @@ public class PluginCurrency {
 //                    }
                 }
             }
-        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
