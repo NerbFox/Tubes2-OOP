@@ -32,7 +32,9 @@ public class CurrencyWrapper implements Currency {
 //        return ((Currency) currency).getCodeCurrency();
         return this.CodeCurrency;
     }
-    public Float getConvertedCurrencyBack(Float amount) {return currency.getConvertedCurrencyBack(amount);}
+    public Float getConvertedCurrencyBack(Float amount) {
+        return amount / this.Rate;
+    }
 
 //    public void setCurrency(Object currency) {
 //        System.out.println("setCurrency !!!!!");
