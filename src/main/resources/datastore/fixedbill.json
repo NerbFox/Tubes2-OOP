@@ -1,0 +1,72 @@
+[
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d1, nama\u003dTeh botol, kategori\u003dMinuman, stok\u003d4, hargaJual\u003d5000.0, hargaBeli\u003d4000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 2,
+      "Barang(idBarang\u003d2, nama\u003dPringless, kategori\u003dMakanan, stok\u003d14, hargaJual\u003d13000.0, hargaBeli\u003d10000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 1
+    },
+    "idFixedBill": 1
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d3, nama\u003dKntl Manis, kategori\u003dMinuman, stok\u003d9, hargaJual\u003d8000.0, hargaBeli\u003d6000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 2,
+      "Barang(idBarang\u003d2, nama\u003dPringless, kategori\u003dMakanan, stok\u003d14, hargaJual\u003d13000.0, hargaBeli\u003d10000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 3
+    },
+    "idFixedBill": 2
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d4, nama\u003dSusu UHT Frisian Flag, kategori\u003dMinuman, stok\u003d19, hargaJual\u003d17000.0, hargaBeli\u003d14000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 3,
+      "Barang(idBarang\u003d3, nama\u003dKntl Manis, kategori\u003dMinuman, stok\u003d9, hargaJual\u003d8000.0, hargaBeli\u003d6000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 4
+    },
+    "idFixedBill": 3
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d4, nama\u003dSusu UHT Frisian Flag, kategori\u003dMinuman, stok\u003d19, hargaJual\u003d17000.0, hargaBeli\u003d14000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 5,
+      "Barang(idBarang\u003d5, nama\u003dRegal, kategori\u003dMakanan, stok\u003d11, hargaJual\u003d7000.0, hargaBeli\u003d9000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 4
+    },
+    "idFixedBill": 4
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d1, nama\u003dTeh botol, kategori\u003dMinuman, stok\u003d4, hargaJual\u003d5000.0, hargaBeli\u003d4000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 2,
+      "Barang(idBarang\u003d2, nama\u003dPringless, kategori\u003dMakanan, stok\u003d14, hargaJual\u003d13000.0, hargaBeli\u003d10000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 1
+    },
+    "idFixedBill": 5
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d3, nama\u003dKntl Manis, kategori\u003dMinuman, stok\u003d9, hargaJual\u003d8000.0, hargaBeli\u003d6000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 2,
+      "Barang(idBarang\u003d2, nama\u003dPringless, kategori\u003dMakanan, stok\u003d14, hargaJual\u003d13000.0, hargaBeli\u003d10000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 3
+    },
+    "idFixedBill": 6
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d4, nama\u003dSusu UHT Frisian Flag, kategori\u003dMinuman, stok\u003d19, hargaJual\u003d17000.0, hargaBeli\u003d14000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 3,
+      "Barang(idBarang\u003d3, nama\u003dKntl Manis, kategori\u003dMinuman, stok\u003d9, hargaJual\u003d8000.0, hargaBeli\u003d6000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 4
+    },
+    "idFixedBill": 7
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d4, nama\u003dSusu UHT Frisian Flag, kategori\u003dMinuman, stok\u003d19, hargaJual\u003d17000.0, hargaBeli\u003d14000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 5,
+      "Barang(idBarang\u003d5, nama\u003dRegal, kategori\u003dMakanan, stok\u003d11, hargaJual\u003d7000.0, hargaBeli\u003d9000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 4
+    },
+    "idFixedBill": 8
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d1, nama\u003dTeh botol, kategori\u003dMinuman, stok\u003d4, hargaJual\u003d5000.0, hargaBeli\u003d4000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 2,
+      "Barang(idBarang\u003d2, nama\u003dPringless, kategori\u003dMakanan, stok\u003d14, hargaJual\u003d13000.0, hargaBeli\u003d10000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 1
+    },
+    "idFixedBill": 9
+  },
+  {
+    "mapBarang": {
+      "Barang(idBarang\u003d1, nama\u003dTeh botol, kategori\u003dMinuman, stok\u003d4, hargaJual\u003d5000.0, hargaBeli\u003d4000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 2,
+      "Barang(idBarang\u003d2, nama\u003dPringless, kategori\u003dMakanan, stok\u003d14, hargaJual\u003d13000.0, hargaBeli\u003d10000.0, pathGambar\u003dfile:./src/main/resources/image/50.png)": 1
+    },
+    "idFixedBill": 10
+  }
+]
