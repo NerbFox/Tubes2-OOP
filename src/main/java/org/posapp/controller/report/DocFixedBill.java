@@ -20,7 +20,7 @@ public class DocFixedBill implements PrintablePDF{
         Document doc = new Document();
         try {
             // Generate a PDF at the specified location
-            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream("Sample.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream("Bill.pdf"));
             // Open the PDF
             doc.open();
             // Sleep for 10 seconds
