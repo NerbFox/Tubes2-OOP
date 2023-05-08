@@ -46,10 +46,8 @@ public class plugin_settings extends Pane {
     private CurrencyWrapper currencyWrapper;
     public plugin_settings(tab_settings parent) {
         this.path = new ArrayList<>();
-        System.out.println("\nplugin_settings\n");
         this.PathPlugin = new ArrayList<>();
-        PathPlugin = this.ReadFromTXT();
-        this.RestoreDataPlugin();
+        System.out.println("\nplugin_settings\n");
         // initialize singleton currencyWrapper
         this.currencyWrapper = CurrencyWrapper.getInstance();
         this.classLoaders = new ArrayList<>();
@@ -133,6 +131,9 @@ public class plugin_settings extends Pane {
         listBox.setSpacing(10); // set the spacing between elements
         scrollPane.setFitToWidth(true); // set the width of the ScrollPane to match its parent
         getChildren().add(scrollPane); // add the elements to the root VBox
+
+        this.ReadFromTXT();
+        this.RestoreDataPlugin();
     }
     private void AddToTXT(String path) {
         try {
@@ -146,29 +147,27 @@ public class plugin_settings extends Pane {
                 myWriter.write("\n" + path);
             }
 //            myWriter.write("\n" + path);
-            myWriter.write(path);
+//            myWriter.write(path);
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
         }
     }
-    private List<String> ReadFromTXT() {
+    private void ReadFromTXT() {
         System.out.println("ReadFromTXT");
-        List<String> path = new ArrayList<>();
         try {
             File myObj = new File("src\\main\\java\\org\\posapp\\view\\settings\\StateGUIPlugin.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 System.out.println(data);
-                path.add(data);
+                this.PathPlugin.add(data);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
         }
-        return path;
     }
     private void AddPlugin(String pathPlug){
         // change selectedFile to File
@@ -182,7 +181,9 @@ public class plugin_settings extends Pane {
         String labelText = selectedFile.getName(); // get the label text from the text field
         AtomicBoolean isLoaded = new AtomicBoolean(false);
         // file is exist
+        System.out.println(selectedFile);
         if (selectedFile.exists()) {
+            System.out.println("\nMASUKKK    pertama\n");
             // cek apa plugin sudah di load
             this.path.forEach((item) -> {
                 if (item.equals(labelText)) {
@@ -193,6 +194,7 @@ public class plugin_settings extends Pane {
 //            isLoaded.set(false);
             this.path.add(labelText);
             if (!isLoaded.get()){
+                System.out.println("\nMASUKKK\n");
                 Label label = new Label(labelText); // create a new label with the text
                 label.setPrefSize(400, 40);
                 Button closeButton = new Button("X"); // create a close button
