@@ -9,13 +9,14 @@ import org.posapp.model.datastore.Datastore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Getter
 public class CashierItems extends Group {
     private VBox content;
     private ArrayList<Barang> contentBarang;
 
-    public CashierItems(ArrayList<Barang> listBarang) {
+    public CashierItems(ArrayList<Barang> listBarang, Consumer<Barang> onButtonPressed) {
         super();
         // Create a VBox to hold the content
         contentBarang = listBarang;
@@ -24,7 +25,7 @@ public class CashierItems extends Group {
 
         // Add CashierItem to the VBox
         for (int i = 0; i < listBarang.size(); i++) {
-            content.getChildren().add(new CashierItem(listBarang.get(i)));
+            content.getChildren().add(new CashierItem(listBarang.get(i), onButtonPressed));
             if (i % 2 == 1) {
                 content.getChildren().get(i).setStyle("-fx-background-color: #D9D9D9");
             }

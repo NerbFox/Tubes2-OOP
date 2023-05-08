@@ -9,9 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import org.posapp.model.Barang;
-import org.posapp.model.Customer;
-import org.posapp.model.Member;
+import org.posapp.model.*;
 import org.posapp.model.datastore.Datastore;
 import org.posapp.view.custom_components.FixedSizeSearchBar;
 import javafx.scene.layout.StackPane;
@@ -23,22 +21,33 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class CashierMenu extends GridPane {
+    private TextField maxPrice;
+    private TextField minPrice;
+    private TextField searchBar;
+    private ComboBox<String> categoryDropdown;
+    private ComboBox<String> customerDropdown;
+    private GridPane saveClear ;
+    private Button checkout;
+    private Button saveBill;
+    private Button clearBill;
+    private Customer currCustomer;
+    private GridPane gridLeft;
+    private GridPane gridRight;
 
-    ObservableList<String> customerNames;
-    ObservableList<String> categoryNames;
-    private CashierItems tableCasItems;
 
     private ArrayList<Barang> tmpListBarang = Datastore.getInstance().getArrBarang();
+    private CashierItems tableCasItems;
     private ArrayList<Customer> customers = Datastore.getInstance().getArrCustomer();
+    private NonFixedBill tableBillItems;
 
     public CashierMenu() {
         super();
         this.setPadding(new Insets(20,20,20,20));
 
-        GridPane gridLeft = new GridPane();
-        GridPane gridRight = new GridPane();
+        gridLeft = new GridPane();
+        gridRight = new GridPane();
 
-        TextField maxPrice = new FixedSizeSearchBar(143,27,"Maximum Price", ((oldValue, newValue) -> maximumPriceHandler(newValue, gridLeft)));
+        maxPrice = new FixedSizeSearchBar(143,27,"Maximum Price", ((oldValue, newValue) -> maximumPriceHandler(newValue, gridLeft)));
         maxPrice.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>)
                 change -> {
                     String input = change.getText();
@@ -55,7 +64,7 @@ public class CashierMenu extends GridPane {
 //        maxPrice.setPrefWidth(143);
 
 
-        TextField minPrice = new FixedSizeSearchBar(143,27,"Minimum Price", ((oldValue, newValue) -> minimumPriceHandler(newValue, gridLeft)));
+        minPrice = new FixedSizeSearchBar(143,27,"Minimum Price", ((oldValue, newValue) -> minimumPriceHandler(newValue, gridLeft)));
         minPrice.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>)
                 change -> {
                     String input = change.getText();
@@ -72,7 +81,7 @@ public class CashierMenu extends GridPane {
 //        minPrice.setPrefWidth(143);
 
 //        FixedSizeSearchBar searchBar = new FixedSizeSearchBar(649, 27, "Search Items Here", )
-        TextField searchBar = new FixedSizeSearchBar(649,27,"Search Items Here",((oldValue, newValue) -> searchItemHandler(newValue,gridLeft)));
+        searchBar = new FixedSizeSearchBar(649,27,"Search Items Here",((oldValue, newValue) -> searchItemHandler(newValue,gridLeft)));
 //        searchBar.setPromptText("Search Items Here");
 //        searchBar.setPrefHeight(27);
 //        searchBar.setPrefWidth(649);
@@ -93,9 +102,11 @@ public class CashierMenu extends GridPane {
                 }
             }
         }
-        System.out.println(namaCustomers);
+        namaCustomers.add("Non-Member");
+//        namaCustomers.add("Non-Member");
+//        System.out.println(namaCustomers);
 
-        ComboBox<String> categoryDropdown = new ComboBox<>(items);
+        categoryDropdown = new ComboBox<>(items);
         categoryDropdown.setPrefHeight(27);
         categoryDropdown.setPrefWidth(212);
         categoryDropdown.setPromptText("Select Category");
@@ -103,28 +114,59 @@ public class CashierMenu extends GridPane {
         categoryDropdown.setOnAction(e -> {
             categorySelectedHandler(categoryDropdown.getSelectionModel().getSelectedItem(), gridLeft);
         });
-
-        ComboBox<String> customerDropdown = new ComboBox<>(namaCustomers);
+        currCustomer = new NonMember(Datastore.getInstance().getArrCustomer().size(), -1);
+        customerDropdown = new ComboBox<>(namaCustomers);
         customerDropdown.setPrefWidth(189);
         customerDropdown.setPrefHeight(27);
         customerDropdown.setPromptText("Select Customer");
         customerDropdown.setEditable(true);
+        customerDropdown.setOnAction(e -> {
+            String selectedCustomer = customerDropdown.getSelectionModel().getSelectedItem();
+            if (selectedCustomer.equals("Non-Member")) {
+                currCustomer = new NonMember(Datastore.getInstance().getArrCustomer().size(), -1);
+                customerSelectedHandler(new NonFixedBill(),gridRight);
+                checkout.setDisable(false);
+                saveBill.setDisable(false);
+                clearBill.setDisable(false);
+            } else if (!namaCustomers.contains(selectedCustomer)) {
+                customerSelectedHandler(new NonFixedBill(),gridRight);
+                checkout.setDisable(true);
+                saveBill.setDisable(true);
+                clearBill.setDisable(true);
+            }
+            else {
+                for (Customer cus : customers) {
+                    if (cus instanceof Member) {
+                        if (selectedCustomer.equals(((Member) cus).getName()) && !selectedCustomer.isEmpty()) {
+                            currCustomer = cus;
+                            tableBillItems = cus.getCurrentBill();
+                            customerSelectedHandler(tableBillItems,gridRight);
+                            checkout.setDisable(false);
+                            saveBill.setDisable(false);
+                            clearBill.setDisable(false);
+                        }
+                    }
+                }
+            }
+        });
+        customerDropdown.setValue("Non-Member");
 
-        Button selectBill = new Button("Select Bill");
-        selectBill.setPrefHeight(27);
-        selectBill.setPrefWidth(107);
+//        Button selectBill = new Button("Select Bill");
+//        selectBill.setPrefHeight(27);
+//        selectBill.setPrefWidth(107);
 
-        Button saveBill = new Button("Save Bill");
+        saveBill = new Button("Save Bill");
         saveBill.setPrefHeight(27);
         saveBill.setPrefWidth(107);
 
-        Button clearBill = new Button("Clear Bill");
+        clearBill= new Button("Clear Bill");
         clearBill.setPrefHeight(27);
         clearBill.setPrefWidth(107);
 
-        Button checkout = new Button("Checkout");
+        checkout = new Button("Checkout");
         checkout.setPrefWidth(201);
         checkout.setPrefHeight(33);
+//        checkout.addEventHandler();
         GridPane.setHalignment(checkout, HPos.CENTER);
 
 
@@ -138,9 +180,9 @@ public class CashierMenu extends GridPane {
         GridPane.setHalignment(minPrice, HPos.RIGHT);
 
         // Clear and save grid
-        GridPane saveClear = new GridPane();
+        saveClear = new GridPane();
         saveClear.add(saveBill, 0, 0);
-        saveClear.add(clearBill, 1, 0);
+        saveClear.add(clearBill, 1,0 );
         GridPane.setHalignment(saveClear, HPos.CENTER);
         saveClear.setAlignment(Pos.CENTER);
         saveClear.setHgap(40);
@@ -148,7 +190,7 @@ public class CashierMenu extends GridPane {
         // Dropdown customer and select bill grid
         GridPane customerSelectAndBill = new GridPane();
         customerSelectAndBill.add(customerDropdown, 0, 0);
-        customerSelectAndBill.add(selectBill, 1, 0);
+//        customerSelectAndBill.add(selectBill, 1, 0);
         GridPane.setHalignment(customerSelectAndBill, HPos.CENTER);
         customerSelectAndBill.setAlignment(Pos.CENTER);
         customerSelectAndBill.setHgap(40);
@@ -158,7 +200,7 @@ public class CashierMenu extends GridPane {
         gridLeft.setVgap(25);
         gridLeft.add(searchBar, 0, 0);
         gridLeft.add(filterSearch, 0, 1);
-        tableCasItems = new CashierItems(tmpListBarang);
+        tableCasItems = new CashierItems(tmpListBarang, this::onAddItemHandler);
         gridLeft.add(tableCasItems, 0, 2);
 
         // Right grid for selecting bill and checkout
@@ -166,7 +208,8 @@ public class CashierMenu extends GridPane {
         gridRight.setPadding(new Insets(50,0,0,0));
         gridRight.setVgap(25);
         gridRight.add(customerSelectAndBill, 0, 0);
-        gridRight.add(new BillItems(), 0, 1);
+        tableBillItems = new NonFixedBill();
+        gridRight.add(new BillItems(tableBillItems, this::onDelete), 0, 1);
         gridRight.add(saveClear, 0, 2);
         gridRight.add(checkout, 0, 3);
 
@@ -176,9 +219,21 @@ public class CashierMenu extends GridPane {
         this.add(gridRight, 1, 0);
     }
 
+    private void customerSelectedHandler(NonFixedBill tableBillItems, GridPane gridRight) {
+        Node node1 = gridRight.getChildren().get(1);
+        gridRight.getChildren().remove(node1);
+        Node node2 = gridRight.getChildren().get(1);
+        gridRight.getChildren().remove(node2);
+        Node node3 = gridRight.getChildren().get(1);
+        gridRight.getChildren().remove(node3);
+        gridRight.add(new BillItems(tableBillItems, this::onDelete),0,1);
+        gridRight.add(saveClear, 0, 2);
+        gridRight.add(checkout, 0, 3);
+    }
+
     private void categorySelectedHandler(String input, GridPane gridLeft) {
         if (input.isEmpty()){
-            tableCasItems = new CashierItems(tmpListBarang);
+            tableCasItems = new CashierItems(tmpListBarang, this::onAddItemHandler);
         } else {
             ObservableList<Barang> searchResult = FXCollections.observableArrayList();
             for (Barang item : tmpListBarang){
@@ -189,50 +244,63 @@ public class CashierMenu extends GridPane {
             ArrayList<Barang> arrayListResult = new ArrayList<>(searchResult);
             Node node = gridLeft.getChildren().get(2);
             gridLeft.getChildren().remove(node);
-            tableCasItems = new CashierItems(arrayListResult);
+            tableCasItems = new CashierItems(arrayListResult, this::onAddItemHandler);
         }
         gridLeft.add(tableCasItems,0,2);
     }
 
     private void minimumPriceHandler(String input, GridPane gridLeft) {
         if (input.isEmpty()){
-            tableCasItems = new CashierItems(tmpListBarang);
+            tableCasItems = new CashierItems(tmpListBarang, this::onAddItemHandler);
         } else {
             ObservableList<Barang> searchResult = FXCollections.observableArrayList();
-            for (Barang item : tableCasItems.getContentBarang()){
-                if (item.getHargaJual() >= Integer.parseInt(input)) {
-                    searchResult.add(item);
+            for (Barang item : tmpListBarang){
+                if (!maxPrice.getText().isEmpty()) {
+                    if (item.getHargaJual() >= Integer.parseInt(input) && item.getHargaJual() <= Integer.parseInt(maxPrice.getText())) {
+                        searchResult.add(item);
+                    }
+                } else {
+                    if (item.getHargaJual() >= Integer.parseInt(input)) {
+                        searchResult.add(item);
+                    }
                 }
             }
             ArrayList<Barang> arrayListResult = new ArrayList<>(searchResult);
             Node node = gridLeft.getChildren().get(2);
             gridLeft.getChildren().remove(node);
-            tableCasItems = new CashierItems(arrayListResult);
+            tableCasItems = new CashierItems(arrayListResult, this::onAddItemHandler);
         }
         gridLeft.add(tableCasItems,0,2);
     }
 
     private void maximumPriceHandler(String input, GridPane gridLeft) {
         if (input.isEmpty()){
-            tableCasItems = new CashierItems(tmpListBarang);
+            tableCasItems = new CashierItems(tmpListBarang, this::onAddItemHandler);
         } else {
             ObservableList<Barang> searchResult = FXCollections.observableArrayList();
-            for (Barang item : tableCasItems.getContentBarang()){
-                if (item.getHargaJual() <= Integer.parseInt(input)) {
-                    searchResult.add(item);
+            for (Barang item : tmpListBarang){
+                if (!minPrice.getText().isEmpty()) {
+                    if (item.getHargaJual() <= Integer.parseInt(input) && item.getHargaJual() >= Integer.parseInt(minPrice.getText())) {
+                        searchResult.add(item);
+                    }
+                } else {
+                    if (item.getHargaJual() <= Integer.parseInt(input)) {
+                        searchResult.add(item);
+                    }
                 }
+
             }
             ArrayList<Barang> arrayListResult = new ArrayList<>(searchResult);
             Node node = gridLeft.getChildren().get(2);
             gridLeft.getChildren().remove(node);
-            tableCasItems = new CashierItems(arrayListResult);
+            tableCasItems = new CashierItems(arrayListResult, this::onAddItemHandler);
         }
         gridLeft.add(tableCasItems,0,2);
     }
 
     private void searchItemHandler(String input, GridPane gridLeft) {
         if (input.isEmpty()){
-            tableCasItems = new CashierItems(tmpListBarang);
+            tableCasItems = new CashierItems(tmpListBarang,this::onAddItemHandler);
         } else {
             ObservableList<Barang> searchResult = FXCollections.observableArrayList();
             for (Barang item : tableCasItems.getContentBarang()){
@@ -243,10 +311,30 @@ public class CashierMenu extends GridPane {
             ArrayList<Barang> arrayListResult = new ArrayList<>(searchResult);
             Node node = gridLeft.getChildren().get(2);
             gridLeft.getChildren().remove(node);
-            tableCasItems = new CashierItems(arrayListResult);
+            tableCasItems = new CashierItems(arrayListResult, this::onAddItemHandler);
         }
         gridLeft.add(tableCasItems,0,2);
     }
+
+    private void onAddItemHandler(Barang b) {
+        tableBillItems = currCustomer.getCurrentBill();
+        tableBillItems.addIdBarang(b.getIdBarang());
+        currCustomer.setCurrentBill(tableBillItems);
+        customerSelectedHandler(tableBillItems, gridRight);
+    }
+
+    private void onDelete(Barang b) {
+        tableBillItems = currCustomer.getCurrentBill();
+        tableBillItems.removeIdBarangByValue(b.getIdBarang());
+        currCustomer.setCurrentBill(tableBillItems);
+        customerSelectedHandler(tableBillItems, gridRight);
+    }
+
+    private void onCheckout() {
+
+    }
+
+
 }
 
 //    private void searchHandler(String input) {

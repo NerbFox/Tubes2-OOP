@@ -10,13 +10,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.posapp.model.Barang;
 
+import java.util.function.Consumer;
+
 public class CashierItem extends HBox {
     private Barang tmpBarang;
 
 
     // dummy
 
-    CashierItem(Barang tmpBarang) {
+    CashierItem(Barang tmpBarang, Consumer<Barang> onButtonPressed) {
         super(10);
 //        tmpBarang = new Barang(1, "rokok", "obat", 10, 1,3, "file:./src/main/resources/image/50.png");
 
@@ -24,7 +26,7 @@ public class CashierItem extends HBox {
         itemLabel.setStyle(" -fx-font-size: 14");
         Label categoryLabel = new Label(tmpBarang.getKategori());
         Label stockLabel = new Label("Stok: " +Integer.toString(tmpBarang.getStok()));
-        Label priceLabel = new Label("USD " + Float.toString(tmpBarang.getHargaJual()));
+        Label priceLabel = new Label(Float.toString(tmpBarang.getHargaJual()));
 
         double height = 52;
         double width = 632;
@@ -32,6 +34,7 @@ public class CashierItem extends HBox {
         this.setPrefWidth(width);
 
         Button imgButtonSelect = new Button();
+        imgButtonSelect.setOnAction(event -> onButtonPressed.accept(tmpBarang));
         Image image = new Image(tmpBarang.getPathGambar());
         ImageView imageView = new ImageView(image);
         imgButtonSelect.setGraphic(imageView);

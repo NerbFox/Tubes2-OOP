@@ -15,10 +15,13 @@ import javafx.scene.layout.VBox;
 import org.posapp.model.Barang;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.function.Consumer;
+
 public class BillItem extends HBox {
     Barang barang;
 
-    public BillItem() {
+    public BillItem(Barang barang, Integer quantity, Consumer<Barang> onDelete) {
         super();
         double height = 29;
         double width = 311;
@@ -32,12 +35,14 @@ public class BillItem extends HBox {
         imageView.setFitHeight(19);
         imageView.setFitWidth(19);
         editButton.setGraphic(imageView);
+        editButton.setOnAction(event -> onDelete.accept(barang));
 
-        Label itemLabel = new Label("Barang 1");
-        Label quantityLabel = new Label("Qty: 3 x USD 100");
+
+        Label itemLabel = new Label(barang.getNama());
+        Label quantityLabel = new Label("Qty: " + quantity + " - " + barang.getHargaJual());
         quantityLabel.setPrefWidth(140);
         quantityLabel.setStyle("-fx-font-size: 10");
-        Label priceLabel = new Label("USD 3000000");
+        Label priceLabel = new Label("USD " + (quantity* barang.getHargaJual()));
         priceLabel.setStyle("-fx-font-size: 11");
 
         VBox vBox = new VBox(4);
