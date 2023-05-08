@@ -1,0 +1,20 @@
+[
+  {
+    "idBarang": 1,
+    "nama": "test",
+    "kategori": "testkategori",
+    "stok": 3,
+    "hargaJual": 300.1,
+    "hargaBeli": 300.3,
+    "pathGambar": "path"
+  },
+  {
+    "idBarang": 2,
+    "nama": "testtest",
+    "kategori": "testkategori2222",
+    "stok": 6,
+    "hargaJual": 600.2,
+    "hargaBeli": 800.4,
+    "pathGambar": "path22"
+  }
+]

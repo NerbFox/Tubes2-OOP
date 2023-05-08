@@ -7,6 +7,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.posapp.controller.report.DocFixedBill;
+import org.posapp.controller.report.DocLaporanKeuangan;
+import org.posapp.controller.report.PrintReport;
+import org.posapp.controller.report.PrintablePDF;
 import org.posapp.model.*;
 
 import org.posapp.model.datastore.Datastore;
@@ -26,6 +30,7 @@ public class HistoryView extends Pane {
     VBox rightSideLayout;
     HBox layout;
     List<TranHis> data;
+    TranHis selectedItem;
 
     public HistoryView(String nama){
         layout = new HBox();
@@ -72,6 +77,12 @@ public class HistoryView extends Pane {
     }
 
     private void toPdf() {
+        System.out.println("print");
+        FixedBill bill = new FixedBill(selectedItem.getMapBarang(), selectedItem.getBillID());
+
+        PrintablePDF pdf = new DocFixedBill(bill);
+        Thread t = new Thread(new PrintReport(pdf));
+        t.start();
     }
 
     private void searchHandler(String input) {
@@ -90,6 +101,7 @@ public class HistoryView extends Pane {
     }
 
     private void onRowSelect(TranHis selectedItem){
+        this.selectedItem = selectedItem;
         layout.getChildren().set(1, new DetailHistoryView(selectedItem));
     }
 

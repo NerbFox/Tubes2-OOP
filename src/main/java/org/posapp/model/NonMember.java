@@ -5,10 +5,12 @@ import lombok.Data;
 import org.posapp.view.custom_components.FixedSizeTable;
 import org.posapp.model.datastore.Datastore;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Data
-public class NonMember extends Customer {
+public class NonMember extends Customer implements Serializable {
+    private static final long serialVersionUID = 1L;
     Integer fixedBillID;
     public NonMember(Integer idCust, Integer fixedBillID) {
         super(idCust, new NonFixedBill());
@@ -26,7 +28,7 @@ public class NonMember extends Customer {
     }
 
     public FixedBill getFixedBill() {
-        Datastore.getInstance().hardCodeBill();
+//        Datastore.getInstance().hardCodeBill();
         ArrayList<FixedBill> allFixedBill = Datastore.getInstance().getArrFixedBill();
 
         for (FixedBill fixedBill : allFixedBill) {

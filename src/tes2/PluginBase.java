@@ -1,8 +1,3 @@
-//package org.posapp.view.settings.tes;//package org.posapp.view.settings;
-// reflection
-//import org.posapp.view.settings.format_file;
-
-//import org.posapp.view.settings.FormatCurrency;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -11,15 +6,13 @@ import java.lang.reflect.Method;
 //import javafx.scene.control.Label;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-//import org.posapp.view.settings.FormatCurrency;
 
-public class PluginCurrency {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+public class PluginBase {
+    public void PluginBase() {
+        System.out.println("PluginBase");
     }
-        // change rate
-    public static void RunPlugin(Object borderPane) {
-        System.out.println("Hello world!, sudah bisa nih?? apakah bisa dijalankan? ini emang bisa... ");
+    public static void RunPlugin(Object borderPane){
+        System.out.println("Hello world!, sudah bisa");
 //        while(true){
 //        }
         // reflection, find classes
@@ -36,7 +29,11 @@ public class PluginCurrency {
                     System.out.println("addButtonAndTab");
                     method.setAccessible(true);
                     // invoke the method
-                    method.invoke(borderPane, "Currency Settings", new FormatCurrency());
+//                    try {
+                    method.invoke(borderPane, "Base Plugin", new Base());
+//                    } catch (IllegalAccessException | NoSuchMethodException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {

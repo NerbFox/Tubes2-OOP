@@ -1,4 +1,4 @@
-import org.posapp.controller.currency.DefaultCurrency;
+package org.posapp.controller.currency;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -55,20 +55,29 @@ public class mainExample {
             throw new RuntimeException(e);
         }
     }
-    private void setPluginCurrency(Object PluginCurrency) throws IllegalAccessException {
+    private void setPluginCurrency(Object PluginCurrency) throws IllegalAccessException, InvocationTargetException {
         // find attribute Currency
-        for (Field field : fields) {
-            System.out.println("field.getName() = " + field.getName());
-            if (field.getName().equals("currency")) {
-                System.out.println("Currency");
-                field.setAccessible(true);
-                // change Currency to JPYCurrency in singleton class CW
-                field.set(this.Object_CW, PluginCurrency);
-//                    System.out.println("Converted Currency = " + CurrencyWrapper.getInstance().getConvertedCurrency(amount));
+//        for (Field field : fields) {
+//            System.out.println("field.getName() = " + field.getName());
+//            if (field.getName().equals("currency")) {
+//                System.out.println("Currency");
+//                field.setAccessible(true);
+//                // change Currency to JPYCurrency in singleton class CW
+//                field.set(this.Object_CW, PluginCurrency);
+////                    System.out.println("Converted Currency = " + CurrencyWrapper.getInstance().getConvertedCurrency(amount));
+//            }
+//        }
+        // method setCurrency
+        for (Method method1 : methods) {
+            if (method1.getName().equals("setCurrency")) {
+                System.out.println("setCurrency");
+                method1.setAccessible(true);
+                // invoke the method
+                method1.invoke(Object_CW, PluginCurrency);
             }
         }
     }
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException {
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException {
         mainExample m = new mainExample();
         System.out.println("Hello world!");
 //        Float amount = 5000.0F;
